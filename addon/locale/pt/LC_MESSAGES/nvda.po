@@ -1,0 +1,600 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: 'genesis' '2025.1.0'\n"
+"Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
+"POT-Creation-Date: 2025-12-11 09:57-0300\n"
+"PO-Revision-Date: 2025-12-11 10:06-0300\n"
+"Last-Translator: Edilberto Fonseca <edilberto.fonseca@outlook.com>\n"
+"Language-Team: Edilberto Fonseca <edilberto.fonseca@outlook.com>\n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.6\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-Bookmarks: -1,21,-1,-1,-1,-1,-1,-1,-1,-1\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#: addon\globalPlugins\genesis\__init__.py:78
+msgid ""
+"This add-on for NVDA offers a practical and affordable tool for developers "
+"to create new add-ons."
+msgstr ""
+"Este complemento para o NVDA oferece uma ferramenta prática e acessível para "
+"desenvolvedores criarem novos complementos."
+
+#: addon\globalPlugins\genesis\__init__.py:86
+msgid "An instance of {} is already open."
+msgstr "Uma instância de {} já está aberta."
+
+#: addon\globalPlugins\genesis\dialogs.py:41
+msgid "Starting..."
+msgstr "Iniciando..."
+
+#: addon\globalPlugins\genesis\dialogs.py:42
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: addon\globalPlugins\genesis\dialogs.py:67
+msgid "GitHub"
+msgstr "GitHub"
+
+#: addon\globalPlugins\genesis\dialogs.py:70
+#: addon\globalPlugins\genesis\dialogs.py:144
+msgid "Username or organization:"
+msgstr "Nome de usuário ou organização:"
+
+#: addon\globalPlugins\genesis\dialogs.py:76
+msgid "GitHub Access Token:"
+msgstr "Token de Acesso do GitHub:"
+
+#: addon\globalPlugins\genesis\dialogs.py:83
+msgid "&Ok"
+msgstr "&Ok"
+
+#: addon\globalPlugins\genesis\dialogs.py:86
+#: addon\globalPlugins\genesis\main.py:132
+msgid "&Cancel"
+msgstr "&Cancelar"
+
+#: addon\globalPlugins\genesis\dialogs.py:101
+msgid "The 'Username or organization name' field cannot be empty!"
+msgstr "O campo 'Nome de usuário ou organização' não pode estar vazio!"
+
+#: addon\globalPlugins\genesis\dialogs.py:102
+#: addon\globalPlugins\genesis\dialogs.py:108
+#: addon\globalPlugins\genesis\fileUtils.py:54
+#: addon\globalPlugins\genesis\fileUtils.py:65
+#: addon\globalPlugins\genesis\main.py:180
+msgid "Error"
+msgstr "Erro"
+
+#: addon\globalPlugins\genesis\dialogs.py:107
+msgid "The access token appears to be invalid or too short!"
+msgstr "O token de acesso parece ser inválido ou muito curto!"
+
+#: addon\globalPlugins\genesis\dialogs.py:113
+msgid "Invalid or unauthorized token."
+msgstr "Token inválido ou não autorizado."
+
+#: addon\globalPlugins\genesis\dialogs.py:114
+msgid "Authentication Error"
+msgstr "Erro de autenticação"
+
+#: addon\globalPlugins\genesis\dialogs.py:127
+msgid "Genesis settings"
+msgstr "Configurações do Genesis"
+
+#: addon\globalPlugins\genesis\dialogs.py:134
+msgid "Allow publishing repository on GitHub"
+msgstr "Permitir publicar repositório no GitHub"
+
+#: addon\globalPlugins\genesis\dialogs.py:139
+msgid "Make repository private"
+msgstr "Tornar repositório privado"
+
+#: addon\globalPlugins\genesis\dialogs.py:153
+msgid "Default project directory:"
+msgstr "Diretório padrão do projeto:"
+
+#: addon\globalPlugins\genesis\dialogs.py:161
+msgid "Choose where new add-ons will be created"
+msgstr "Escolha onde os novos complementos serão criados"
+
+#. translators: This message is shown when the source folder does not exist.
+#: addon\globalPlugins\genesis\fileUtils.py:52
+msgid "The folder of origin does not exist."
+msgstr "A pasta de origem não existe."
+
+#: addon\globalPlugins\genesis\fileUtils.py:88
+#: addon\globalPlugins\genesis\main.py:337
+msgid "Warning"
+msgstr "Aviso"
+
+#: addon\globalPlugins\genesis\fileUtils.py:95
+msgid "Trying to remove the files from the directory {}..."
+msgstr "Tentando remover os arquivos do diretório {}..."
+
+#: addon\globalPlugins\genesis\fileUtils.py:106
+msgid "The directory {} was successfully removed!"
+msgstr "O diretório {} foi removido com sucesso!"
+
+#: addon\globalPlugins\genesis\fileUtils.py:107
+msgid "Success"
+msgstr "Sucesso"
+
+#: addon\globalPlugins\genesis\fileUtils.py:113
+msgid "The directory {} does not exist."
+msgstr "O diretório {} não existe."
+
+#: addon\globalPlugins\genesis\fileUtils.py:114
+#: addon\globalPlugins\genesis\main.py:269
+msgid "Info"
+msgstr "Informações"
+
+#: addon\globalPlugins\genesis\fileUtils.py:121
+msgid "Error when trying to remove the directory: {}"
+msgstr "Erro ao tentar remover o diretório: {}"
+
+#. Destination folder
+#: addon\globalPlugins\genesis\main.py:51
+msgid "Local folder of the Add-on"
+msgstr "Pasta local do complemento"
+
+#: addon\globalPlugins\genesis\main.py:54
+msgid "Directory path:"
+msgstr "Caminho do diretório:"
+
+#: addon\globalPlugins\genesis\main.py:55
+msgid "Select the destination folder"
+msgstr "Selecione a pasta de destino"
+
+#. Text fields
+#: addon\globalPlugins\genesis\main.py:62
+msgid "Add-on information"
+msgstr "Informações do complemento"
+
+#: addon\globalPlugins\genesis\main.py:65
+msgid "Add-on name:"
+msgstr "Nome do complemento:"
+
+#: addon\globalPlugins\genesis\main.py:70
+msgid "Summary:"
+msgstr "Resumo:"
+
+#: addon\globalPlugins\genesis\main.py:75
+msgid "Description:"
+msgstr "Descrição:"
+
+#: addon\globalPlugins\genesis\main.py:80
+msgid "Version:"
+msgstr "Versão:"
+
+#: addon\globalPlugins\genesis\main.py:85
+msgid "Author:"
+msgstr "Autor:"
+
+#: addon\globalPlugins\genesis\main.py:90
+msgid "Minimum version of NVDA:"
+msgstr "Versão mínima do NVDA:"
+
+#: addon\globalPlugins\genesis\main.py:95
+msgid "Last tested NVDA version:"
+msgstr "Última versão do NVDA testada:"
+
+#. Module
+#: addon\globalPlugins\genesis\main.py:102
+msgid "Add-on modules"
+msgstr "Módulos do complemento"
+
+#: addon\globalPlugins\genesis\main.py:105
+msgid "Module:"
+msgstr "Módulo:"
+
+#. Location
+#: addon\globalPlugins\genesis\main.py:113
+msgid "Add-on location"
+msgstr "Localização do complemento"
+
+#: addon\globalPlugins\genesis\main.py:116
+msgid "Include doc"
+msgstr "Incluir documentação"
+
+#: addon\globalPlugins\genesis\main.py:117
+msgid "Include locale"
+msgstr "Incluir localizações"
+
+#. Buttons
+#: addon\globalPlugins\genesis\main.py:123
+msgid "Actions"
+msgstr "Ações"
+
+#: addon\globalPlugins\genesis\main.py:126
+msgid "&Generate"
+msgstr "&Gerar"
+
+#: addon\globalPlugins\genesis\main.py:128
+msgid "C&lean"
+msgstr "&Limpar"
+
+#: addon\globalPlugins\genesis\main.py:130
+msgid "Clone the official &NVDA repository."
+msgstr "Clonar o repositório oficial do &NVDA."
+
+#. Checks if the destination folder is empty
+#: addon\globalPlugins\genesis\main.py:164
+msgid "Directory path cannot be empty."
+msgstr "O caminho do diretório não pode estar vazio."
+
+#: addon\globalPlugins\genesis\main.py:164
+#: addon\globalPlugins\genesis\main.py:250
+msgid "Missing information"
+msgstr "Informações ausentes"
+
+#: addon\globalPlugins\genesis\main.py:173
+msgid "GitHub Authentication"
+msgstr "Autenticação do GitHub"
+
+#. translators: This message is shown when the user cancels the authentication dialog or if the authentication fails.
+#: addon\globalPlugins\genesis\main.py:180
+msgid "Authentication was canceled or failed."
+msgstr "A autenticação foi cancelada ou falhou."
+
+#: addon\globalPlugins\genesis\main.py:191
+msgid "Creating Addon"
+msgstr "Criando o complemento"
+
+#: addon\globalPlugins\genesis\main.py:235
+msgid "Addon name"
+msgstr "Nome do complemento"
+
+#: addon\globalPlugins\genesis\main.py:236
+msgid "Addon summary"
+msgstr "Resumo do complemento"
+
+#: addon\globalPlugins\genesis\main.py:237
+msgid "Addon description"
+msgstr "Descrição do complemento"
+
+#: addon\globalPlugins\genesis\main.py:238
+msgid "Author"
+msgstr "Autor"
+
+#: addon\globalPlugins\genesis\main.py:239
+msgid "Version"
+msgstr "Versão"
+
+#: addon\globalPlugins\genesis\main.py:240
+msgid "Minimum NVDA Version"
+msgstr "Versão mínima do NVDA"
+
+#: addon\globalPlugins\genesis\main.py:241
+msgid "Last Tested NVDA Version"
+msgstr "Última versão testada do NVDA"
+
+#: addon\globalPlugins\genesis\main.py:249
+msgid "The field '{}' cannot be empty."
+msgstr "O campo '{}' não pode estar vazio."
+
+#. translators: This message is shown when the user is prompted to choose a folder to clone the NVDA repository.
+#: addon\globalPlugins\genesis\main.py:264
+msgid "Choose the folder where the NVDA repository will be cloned:"
+msgstr "Escolha a pasta onde o repositório NVDA será clonado:"
+
+#. translators: This message is shown when the user cancels the cloning operation.
+#: addon\globalPlugins\genesis\main.py:269
+msgid "Clone canceled by the user."
+msgstr "Clonagem cancelada pelo usuário."
+
+#: addon\globalPlugins\genesis\main.py:274
+msgid "Cloning NVDA Repository"
+msgstr "Clonando o repositório NVDA"
+
+#: addon\globalPlugins\genesis\main.py:312
+msgid "Attention"
+msgstr "Atenção"
+
+#: addon\globalPlugins\genesis\main.py:337
+msgid "Please wait for the add-on creation to finish before closing."
+msgstr ""
+"Por favor, aguarde a conclusão da criação do complemento antes de fechar."
+
+#: addon\globalPlugins\genesis\repo.py:30
+msgid "Repository creation is disabled in the add-on settings."
+msgstr ""
+"A criação de repositório está desabilitada nas configurações do complemento."
+
+#: addon\globalPlugins\genesis\repo.py:58
+msgid "Repository created successfully!"
+msgstr "Repositório criado com sucesso!"
+
+#: addon\globalPlugins\genesis\repo.py:60
+msgid "Invalid token or insufficient permissions."
+msgstr "Token inválido ou permissões insuficientes."
+
+#: addon\globalPlugins\genesis\repo.py:64
+msgid "message"
+msgstr "mensagem"
+
+#: addon\globalPlugins\genesis\repo.py:64
+msgid "Unknown error."
+msgstr "Erro desconhecido."
+
+#: addon\globalPlugins\genesis\repo.py:77
+msgid "Connection error or request: {e}"
+msgstr "Erro de conexão ou de solicitação: {e}"
+
+#: addon\globalPlugins\genesis\workerThreads.py:60
+msgid "Checking destination folder..."
+msgstr "Verificando a pasta de destino..."
+
+#: addon\globalPlugins\genesis\workerThreads.py:64
+msgid "Removing existing folder..."
+msgstr "Removendo a pasta existente..."
+
+#: addon\globalPlugins\genesis\workerThreads.py:68
+msgid "Clone operation canceled."
+msgstr "Operação de clonagem cancelada."
+
+#: addon\globalPlugins\genesis\workerThreads.py:71
+msgid "Cloning NVDA repository..."
+msgstr "Clonando o repositório NVDA..."
+
+#: addon\globalPlugins\genesis\workerThreads.py:78
+msgid "Operation canceled and folder removed."
+msgstr "Operação cancelada e pasta removida."
+
+#: addon\globalPlugins\genesis\workerThreads.py:81
+msgid "Finalizing..."
+msgstr "Finalizando..."
+
+#: addon\globalPlugins\genesis\workerThreads.py:83
+msgid "Clone completed successfully!"
+msgstr "Clonagem concluída com sucesso!"
+
+#: addon\globalPlugins\genesis\workerThreads.py:86
+msgid "Error while cloning the repository: {}"
+msgstr "Erro ao clonar o repositório: {}"
+
+#: addon\globalPlugins\genesis\workerThreads.py:128
+msgid "Creating GitHub repository..."
+msgstr "Criando repositório no GitHub..."
+
+#: addon\globalPlugins\genesis\workerThreads.py:137
+msgid "GitHub Error"
+msgstr "Erro no GitHub"
+
+#: addon\globalPlugins\genesis\workerThreads.py:141
+msgid "Skipping GitHub repository creation..."
+msgstr "Ignorando a criação do repositório no GitHub..."
+
+#. STEP 2 - Clone template according to the publish option
+#: addon\globalPlugins\genesis\workerThreads.py:146
+msgid "Cloning template repository..."
+msgstr "Clonando o repositório de template..."
+
+#. STEP 3 - Create add-on folder structure
+#: addon\globalPlugins\genesis\workerThreads.py:151
+msgid "Generating add-on structure..."
+msgstr "Gerando a estrutura do complemento..."
+
+#. STEP 4 - Fill in template files
+#: addon\globalPlugins\genesis\workerThreads.py:161
+msgid "Finalizing add-on..."
+msgstr "Finalizando o complemento..."
+
+#: addon\globalPlugins\genesis\workerThreads.py:166
+msgid ""
+"The necessary structure for the development of the add-on was successfully "
+"created!"
+msgstr ""
+"A estrutura necessária para o desenvolvimento do add-on foi criada com "
+"sucesso!"
+
+#: addon\globalPlugins\genesis\workerThreads.py:172
+msgid "An error occurred during the creation of the add-on."
+msgstr "Ocorreu um erro durante a criação do complemento."
+
+#. Add-on summary/title, usually the user visible name of the add-on
+#. Translators: Summary/title for this add-on
+#. to be shown on installation and add-on information found in add-on store
+#: buildVars.py:21
+msgid "Genesis - Add-on Project Generator for NVDA"
+msgstr "Gênesis - Gerador de Projetos de Complementos para o NVDA"
+
+#. Add-on description
+#. Translators: Long description to be shown for this add-on on add-on information from add-on store
+#: buildVars.py:24
+msgid ""
+"This NVDA add-on provides a practical and accessible tool for developers to "
+"efficiently create new add-ons.\n"
+"\n"
+"It features an intuitive interface for configuring key project information - "
+"such as name, description, author, version, and minimum NVDA requirements - "
+"and automatically generates the initial project structure based on a "
+"customizable template.\n"
+"\n"
+"Shortcut: NVDA+Shift+G."
+msgstr ""
+"Este complemento para o NVDA oferece uma ferramenta prática e acessível para "
+"que desenvolvedores criem novos complementos de forma eficiente.\n"
+"\n"
+"Ele conta com uma interface intuitiva para configurar as principais "
+"informações do projeto — como nome, descrição, autor, versão e requisitos "
+"mínimos do NVDA — e gera automaticamente a estrutura inicial do projeto com "
+"base em um modelo personalizável.\n"
+"\n"
+"Atalho: NVDA+Shift+G."
+
+#. Brief changelog for this version
+#. Translators: what's new content for the add-on version to be shown in the add-on store
+#: buildVars.py:33
+msgid ""
+"Changelog for the add-on version.\n"
+"It can span multiple lines."
+msgstr ""
+"Registro de alterações da versão do complemento.\n"
+"Ele pode abranger várias linhas."
+
+#~ msgid "Cloning official NVDA template..."
+#~ msgstr "Clona sempre o template oficial da NVAccess."
+
+#~ msgid "Repository description:"
+#~ msgstr "Descrição do repositório:"
+
+#~ msgid "Private Repository"
+#~ msgstr "Repositório Privado"
+
+#~ msgid ""
+#~ "The access token is invalid or unauthorized. Please check your token and "
+#~ "try again."
+#~ msgstr ""
+#~ "O token de acesso é inválido ou não autorizado. Verifique seu token e "
+#~ "tente novamente."
+
+#~ msgid "The field 'Destination folder' cannot be empty."
+#~ msgstr "O campo 'Pasta de destino' não pode estar vazio."
+
+#~ msgid "Destination folder:"
+#~ msgstr "Pasta de destino:"
+
+#~ msgid "Repositório Privado"
+#~ msgstr "Repositório Privado"
+
+#~ msgid "Clone &template"
+#~ msgstr "Clonar &template"
+
+#~ msgid "The directory {} It already exists. Removing the content..."
+#~ msgstr "O diretório {} já existe. Removendo o conteúdo..."
+
+#~ msgid "The {} directory was not found."
+#~ msgstr "O diretório {} não foi encontrado."
+
+#~ msgid "Cloning the repository {} to the directory {}..."
+#~ msgstr "Clonando o repositório {} para o diretório {}..."
+
+#~ msgid "Add-on user visible name"
+#~ msgstr "Nome visível do usuário do add-on"
+
+#~ msgid "Select the folder."
+#~ msgstr "Selecione a pasta."
+
+#~ msgid "Addon version: "
+#~ msgstr "Versão do complemento: "
+
+#~ msgid "Choose option"
+#~ msgstr "Escolha a opção"
+
+#~ msgid "Fill in all fields!"
+#~ msgstr "Preencha todos os campos!"
+
+#~ msgid "Error processing template: {}"
+#~ msgstr "Erro ao processar o modelo: {}"
+
+#~ msgid "Error creating 'addon' folder structure: {}"
+#~ msgstr "Erro ao criar a estrutura da pasta do \"addon\": {}"
+
+#~ msgid ""
+#~ "Select the folder where the new project will be saved. If not selected, "
+#~ "unit C: will be used by default."
+#~ msgstr ""
+#~ "Selecione a pasta onde o novo projeto será salvo. Caso não seja "
+#~ "selecionada, a unidade C: será utilizada por padrão."
+
+#~ msgid "The add-on name is required!"
+#~ msgstr "O nome do complemento é necessário!"
+
+#~ msgid "Please provide a summary for your add-on."
+#~ msgstr "Por favor, forneça um resumo para o seu complemento."
+
+#~ msgid "It is necessary to inform the description!"
+#~ msgstr "É necessário informar a descrição!"
+
+#~ msgid "It is necessary to inform the version!"
+#~ msgstr "É necessário informar a versão!"
+
+#~ msgid "It is necessary to inform the author!"
+#~ msgstr "É necessário informar o autor!"
+
+#~ msgid "It is necessary to inform the minimum NVDA version!"
+#~ msgstr "É necessário informar a versão mínima do NVDA!"
+
+#~ msgid "It is necessary to inform the last tested NVDA version!"
+#~ msgstr "É necessário informar a última versão testada do NVDA!"
+
+#~ msgid "It was not possible to create the folder."
+#~ msgstr "Não foi possível criar a pasta."
+
+#~ msgid "Add-on successfully created at: {}"
+#~ msgstr "Add-on criado com sucesso em: {}"
+
+#~ msgid "Successful copied content from {} to {} "
+#~ msgstr "Conteúdo copiado com sucesso de {} para {}"
+
+#~ msgid "It is necessary to inform the name!"
+#~ msgstr "É necessário informar o nome!"
+
+#~ msgid "It is necessary to inform the summary!"
+#~ msgstr "É necessário informar o resumo!"
+
+#~ msgid "A pasta de origem não existe."
+#~ msgstr "A pasta de origem não existe."
+
+#~ msgid ""
+#~ "Template file was not found. Make sure the template.zip and "
+#~ "buildVars.py.tpl files are in the 'models' folder."
+#~ msgstr ""
+#~ "O arquivo de modelo não foi encontrado. Verifique se o modelo.zip e os "
+#~ "arquivos BuildVars.py.tpl estão na pasta 'Modelos'."
+
+#~ msgid "Template file not found: {}"
+#~ msgstr "Arquivo de modelo não encontrado: {}"
+
+#~ msgid "Invalid ZIP file."
+#~ msgstr "Arquivo ZIP inválido."
+
+#~ msgid "&Exit"
+#~ msgstr "&Sair"
+
+#~| msgid "Error"
+#~ msgid "Erro"
+#~ msgstr "Erro"
+
+#~ msgid "Please fill all required fields."
+#~ msgstr "Por favor preencha todos os campos obrigatórios."
+
+#~ msgid "brailleDisplayDrivers"
+#~ msgstr "brailleDisplayDrivers"
+
+#~ msgid "globalPlugins"
+#~ msgstr "globalPlugins"
+
+#~ msgid "synthDrivers"
+#~ msgstr "synthDrivers"
+
+#~ msgid "visionEnhancementProviders"
+#~ msgstr "visionEnhancementProviders"
+
+#~ msgid "doc"
+#~ msgstr "doc"
+
+#, python-brace-format
+#~ msgid ""
+#~ "Structure of the 'addon' folder successfully created in: {pasta_addon}"
+#~ msgstr "Estrutura da pasta 'addon' criada com sucesso em: {pasta_addon}"
+
+#, python-brace-format
+#~ msgid "&{ADDON_SUMMARY}..."
+#~ msgstr "&{ADDON_SUMMARY}..."
+
+#~ msgid "This add-on configures the environment for creating new add-ons."
+#~ msgstr "Esse add-on configura o ambiente para a criação de novos add-ons."
+
+#~ msgid "Gênese"
+#~ msgstr "Genesis"
