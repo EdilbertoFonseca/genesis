@@ -4,17 +4,17 @@
 """Import all submodules' main classes into the package space."""
 
 __all__ = [
-    "IndexObject",
-    "Object",
-    "Blob",
-    "Commit",
-    "Submodule",
-    "UpdateProgress",
-    "RootModule",
-    "RootUpdateProgress",
-    "TagObject",
-    "Tree",
-    "TreeModifier",
+	"IndexObject",
+	"Object",
+	"Blob",
+	"Commit",
+	"Submodule",
+	"UpdateProgress",
+	"RootModule",
+	"RootUpdateProgress",
+	"TagObject",
+	"Tree",
+	"TreeModifier",
 ]
 
 from .base import IndexObject, Object

@@ -4,41 +4,41 @@
 import os
 import sys
 from typing import (
-    Any,
-    Callable,
-    Dict,
-    List,
-    NoReturn,
-    Optional,
-    Sequence as Sequence,
-    Tuple,
-    TYPE_CHECKING,
-    Type,
-    TypeVar,
-    Union,
+	Any,
+	Callable,
+	Dict,
+	List,
+	NoReturn,
+	Optional,
+	Sequence as Sequence,
+	Tuple,
+	TYPE_CHECKING,
+	Type,
+	TypeVar,
+	Union,
 )
 import warnings
 
 if sys.version_info >= (3, 8):
-    from typing import (
-        Literal,
-        Protocol,
-        SupportsIndex as SupportsIndex,
-        TypedDict,
-        runtime_checkable,
-    )
+	from typing import (
+		Literal,
+		Protocol,
+		SupportsIndex as SupportsIndex,
+		TypedDict,
+		runtime_checkable,
+	)
 else:
-    from typing_extensions import (
-        Literal,
-        Protocol,
-        SupportsIndex as SupportsIndex,
-        TypedDict,
-        runtime_checkable,
-    )
+	from typing_extensions import (
+		Literal,
+		Protocol,
+		SupportsIndex as SupportsIndex,
+		TypedDict,
+		runtime_checkable,
+	)
 
 if TYPE_CHECKING:
-    from git.objects import Commit, Tree, TagObject, Blob
-    from git.repo import Repo
+	from git.objects import Commit, Tree, TagObject, Blob
+	from git.repo import Repo
 
 PathLike = Union[str, "os.PathLike[str]"]
 """A :class:`str` (Unicode) based file or directory path."""
@@ -151,27 +151,27 @@ Instead of this type:
 
 
 def _getattr(name: str) -> Any:
-    if name != "Lit_commit_ish":
-        raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
+	if name != "Lit_commit_ish":
+		raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
 
-    warnings.warn(
-        "Lit_commit_ish is deprecated. It is currently defined as "
-        '`Literal["commit", "tag"]`, which should be used in its place if desired. It '
-        'had previously been defined as `Literal["commit", "tag", "blob", "tree"]`, '
-        "covering all four git object type strings including those that are never "
-        "commit-ish. For that, use the GitObjectTypeString type instead.",
-        DeprecationWarning,
-        stacklevel=2,
-    )
-    return Literal["commit", "tag"]
+	warnings.warn(
+		"Lit_commit_ish is deprecated. It is currently defined as "
+		'`Literal["commit", "tag"]`, which should be used in its place if desired. It '
+		'had previously been defined as `Literal["commit", "tag", "blob", "tree"]`, '
+		"covering all four git object type strings including those that are never "
+		"commit-ish. For that, use the GitObjectTypeString type instead.",
+		DeprecationWarning,
+		stacklevel=2,
+	)
+	return Literal["commit", "tag"]
 
 
 if not TYPE_CHECKING:  # Preserve static checking for undefined/misspelled attributes.
-    __getattr__ = _getattr
+	__getattr__ = _getattr
 
 
 def __dir__() -> List[str]:
-    return [*globals(), "Lit_commit_ish"]
+	return [*globals(), "Lit_commit_ish"]
 
 
 # Config_levels ---------------------------------------------------------
@@ -213,73 +213,73 @@ or :meth:`Repo.clone_from <git.repo.base.Repo.clone_from>`.
 
 
 def assert_never(inp: NoReturn, raise_error: bool = True, exc: Union[Exception, None] = None) -> None:
-    """For use in exhaustive checking of a literal or enum in if/else chains.
+	"""For use in exhaustive checking of a literal or enum in if/else chains.
 
-    A call to this function should only be reached if not all members are handled, or if
-    an attempt is made to pass non-members through the chain.
+	A call to this function should only be reached if not all members are handled, or if
+	an attempt is made to pass non-members through the chain.
 
-    :param inp:
-        If all members are handled, the argument for `inp` will have the
-        :class:`~typing.Never`/:class:`~typing.NoReturn` type.
-        Otherwise, the type will mismatch and cause a mypy error.
+	:param inp:
+	    If all members are handled, the argument for `inp` will have the
+	    :class:`~typing.Never`/:class:`~typing.NoReturn` type.
+	    Otherwise, the type will mismatch and cause a mypy error.
 
-    :param raise_error:
-        If ``True``, will also raise :exc:`ValueError` with a general
-        "unhandled literal" message, or the exception object passed as `exc`.
+	:param raise_error:
+	    If ``True``, will also raise :exc:`ValueError` with a general
+	    "unhandled literal" message, or the exception object passed as `exc`.
 
-    :param exc:
-        It not ``None``, this should be an already-constructed exception object, to be
-        raised if `raise_error` is ``True``.
-    """
-    if raise_error:
-        if exc is None:
-            raise ValueError(f"An unhandled literal ({inp!r}) in an if/else chain was found")
-        else:
-            raise exc
+	:param exc:
+	    It not ``None``, this should be an already-constructed exception object, to be
+	    raised if `raise_error` is ``True``.
+	"""
+	if raise_error:
+		if exc is None:
+			raise ValueError(f"An unhandled literal ({inp!r}) in an if/else chain was found")
+		else:
+			raise exc
 
 
 class Files_TD(TypedDict):
-    """Dictionary with stat counts for the diff of a particular file.
+	"""Dictionary with stat counts for the diff of a particular file.
 
-    For the :class:`~git.util.Stats.files` attribute of :class:`~git.util.Stats`
-    objects.
-    """
+	For the :class:`~git.util.Stats.files` attribute of :class:`~git.util.Stats`
+	objects.
+	"""
 
-    insertions: int
-    deletions: int
-    lines: int
-    change_type: str
+	insertions: int
+	deletions: int
+	lines: int
+	change_type: str
 
 
 class Total_TD(TypedDict):
-    """Dictionary with total stats from any number of files.
+	"""Dictionary with total stats from any number of files.
 
-    For the :class:`~git.util.Stats.total` attribute of :class:`~git.util.Stats`
-    objects.
-    """
+	For the :class:`~git.util.Stats.total` attribute of :class:`~git.util.Stats`
+	objects.
+	"""
 
-    insertions: int
-    deletions: int
-    lines: int
-    files: int
+	insertions: int
+	deletions: int
+	lines: int
+	files: int
 
 
 class HSH_TD(TypedDict):
-    """Dictionary carrying the same information as a :class:`~git.util.Stats` object."""
+	"""Dictionary carrying the same information as a :class:`~git.util.Stats` object."""
 
-    total: Total_TD
-    files: Dict[PathLike, Files_TD]
+	total: Total_TD
+	files: Dict[PathLike, Files_TD]
 
 
 @runtime_checkable
 class Has_Repo(Protocol):
-    """Protocol for having a :attr:`repo` attribute, the repository to operate on."""
+	"""Protocol for having a :attr:`repo` attribute, the repository to operate on."""
 
-    repo: "Repo"
+	repo: "Repo"
 
 
 @runtime_checkable
 class Has_id_attribute(Protocol):
-    """Protocol for having :attr:`_id_attribute_` used in iteration and traversal."""
+	"""Protocol for having :attr:`_id_attribute_` used in iteration and traversal."""
 
-    _id_attribute_: str
+	_id_attribute_: str

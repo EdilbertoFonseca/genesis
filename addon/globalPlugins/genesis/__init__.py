@@ -2,17 +2,24 @@
 
 """
 Author: Edilberto Fonseca <edilberto.fonseca@outlook.com>
-Copyright: (C) 2025 Edilberto Fonseca
+Copyright: (C) 2025 - 2026 Edilberto Fonseca
 
 This file is covered by the GNU General Public License.
 See the file COPYING for more details or visit:
 https://www.gnu.org/licenses/gpl-2.0.html
+
+-------------------------------------------------------------------------
+AI DISCLOSURE / NOTA DE IA:
+This project utilizes AI for code refactoring and logic suggestions.
+All AI-generated code was manually reviewed and tested by the author.
+-------------------------------------------------------------------------
 
 Created on: 21/11/2024.
 """
 
 import os
 import sys
+from gettext import gettext as _
 
 import addonHandler
 import globalPluginHandler
@@ -25,26 +32,19 @@ from scriptHandler import script
 
 from .dialogs import GenesisSettingsPanel
 from .main import Genesis
-from .varsConfig import ADDON_SUMMARY, addonPath, initConfiguration
+from .varsConfig import ADDON_SUMMARY, ADDON_PATH, initConfiguration
 
 # Add the lib/ folder to sys.path (only once)
-libPath = os.path.join(addonPath, "lib")
+libPath = os.path.join(ADDON_PATH, "lib")
 if libPath not in sys.path:
 	sys.path.insert(0, libPath)
 
 # Initializes the translation
 addonHandler.initTranslation()
 
-_isGenesisOpen = False  # To track if the Genesis dialog is already open
-dlgGenesis = None  # Reference to the Genesis dialog instance
-
-def onGenesisClosed(evt):
-	""" Handler for when the Genesis dialog is closed. """
-	global 	_isGenesisOpen
-	_isGenesisOpen = False
-	evt.Skip()
 
 def disableInSecureMode(decoratedCls):
+	"""Disable plugin in secure mode (e.g. Windows logon screen)."""
 	if globalVars.appArgs.secure:
 		return globalPluginHandler.GlobalPlugin
 	return decoratedCls
@@ -52,58 +52,74 @@ def disableInSecureMode(decoratedCls):
 
 @disableInSecureMode
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
-	# Creating the constructor of the newly created GlobalPlugin class.
 	def __init__(self, *args, **kwargs):
-		super(GlobalPlugin, self).__init__(*args, **kwargs)
-		self.create_menu()
+		super().__init__(*args, **kwargs)
 
-	def create_menu(self):
-		# Initialize configuration
+		self._isGenesisOpen = False
+		self.dlgGenesis = None
+
+		self.createMenu()
+
+	# MENU
+	def createMenu(self):
+		# Initialize configuration storage (configobj)
 		initConfiguration()
 
-		# Register the settings panel in NVDA
+		# Register settings panel inside NVDA settings dialog
 		if GenesisSettingsPanel not in gui.settingsDialogs.NVDASettingsDialog.categoryClasses:
 			gui.settingsDialogs.NVDASettingsDialog.categoryClasses.append(GenesisSettingsPanel)
 
 		self.toolsMenu = gui.mainFrame.sysTrayIcon.toolsMenu
-		# Translators: Add-on title in the tools menu.
-		self.genesis = self.toolsMenu.Append(wx.ID_ANY, f"&{ADDON_SUMMARY}...")
-		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.script_onGenesis, self.genesis)
 
-	# defining a script with decorator:
+		# Translators: Add-on menu item in NVDA tools menu.
+		self.genesisMenuItem = self.toolsMenu.Append(wx.ID_ANY, f"&{ADDON_SUMMARY}...")
+
+		# Bind correct handler (not unbind)
+		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.script_onGenesis, self.genesisMenuItem)
+
+	# EVENT HANDLER - DIALOG CLOSE
+	def onGenesisClosed(self, evt):
+		"""Called whenever the Genesis dialog is closed."""
+		self._isGenesisOpen = False
+		self.dlgGenesis = None
+		evt.Skip()
+
+		# SCRIPT - OPEN GENESIS
+
+	# Defining a script with a decorator:
 	@script(
-		gesture="kb:NVDA+Shift+G",
+		gesture="kb:NVDA+Alt+G",
 		# Translators: Text displayed in NVDA help.
-		description=_(
-			"This add-on for NVDA offers a practical and affordable tool for developers to create new add-ons."
-		),
+		description=_("This add-on offers practical tools for developers to create new NVDA add-ons."),
 		category=ADDON_SUMMARY,
 	)
-	def script_onGenesis(self, gesture):
-		global _isGenesisOpen, dlgGenesis
-
-		if _isGenesisOpen:
-			ui.message(_("An instance of {} is already open.").format(ADDON_SUMMARY))
+	def script_onGenesis(self, gesture=None):
+		if self._isGenesisOpen:
+			ui.message(
+				_("An instance of {} is already open.").format(ADDON_SUMMARY),
+			)
 			return
 
-		_isGenesisOpen = True
+		self._isGenesisOpen = True
 
-		dlgGenesis = Genesis(gui.mainFrame, ADDON_SUMMARY)
-		dlgGenesis.Bind(wx.EVT_WINDOW_DESTROY, onGenesisClosed)
+		self.dlgGenesis = Genesis(gui.mainFrame, ADDON_SUMMARY)
+		self.dlgGenesis.Bind(wx.EVT_WINDOW_DESTROY, self.onGenesisClosed)
 
 		gui.mainFrame.prePopup()
-		dlgGenesis.CentreOnScreen()
-		dlgGenesis.Show()
+		self.dlgGenesis.CentreOnScreen()
+		self.dlgGenesis.Show()
 		gui.mainFrame.postPopup()
 
-	# This terminate function is necessary when creating new menus.
+	# TERMINATE
 	def terminate(self):
-		super(GlobalPlugin, self).terminate()
-		# Remove the panel when the add-on is uninstalled
+		super().terminate()
+
+		# Remove settings panel
 		if GenesisSettingsPanel in gui.settingsDialogs.NVDASettingsDialog.categoryClasses:
 			gui.settingsDialogs.NVDASettingsDialog.categoryClasses.remove(GenesisSettingsPanel)
 
+		# Remove menu item
 		try:
-			self.toolsMenu.Remove(self.genesis)
+			self.toolsMenu.Remove(self.genesisMenuItem)
 		except Exception as e:
-			log.warning(f"Error removing Scraps and Genesis item: {e}")
+			log.warning(f"Error removing Genesis item: {e}")

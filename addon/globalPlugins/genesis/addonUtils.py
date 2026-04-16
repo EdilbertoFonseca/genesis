@@ -2,17 +2,22 @@
 
 """
 Author: Edilberto Fonseca <edilberto.fonseca@outlook.com>
-Copyright: (C) 2025 Edilberto Fonseca
+Copyright: (C) 2025 - 2026 Edilberto Fonseca
 
 This file is covered by the GNU General Public License.
 See the file COPYING for more details or visit:
 https://www.gnu.org/licenses/gpl-2.0.html
 
+-------------------------------------------------------------------------
+AI DISCLOSURE / NOTA DE IA:
+This project utilizes AI for code refactoring and logic suggestions.
+All AI-generated code was manually reviewed and tested by the author.
+-------------------------------------------------------------------------
+
 Created on: 21/11/2024.
 """
 
 from pathlib import Path
-
 import versionInfo
 from logHandler import log
 
@@ -20,10 +25,10 @@ from logHandler import log
 DEFAULTS = {
 	"version": "2025.1.0",
 	"minNVDA": "2023.3.4",
-	"lastNVDA": versionInfo.version,
+	"lastNVDA": versionInfo.version,  # versão do NVDA em execução
 }
 
-# List of modules that can be selected for the add-on
+# List of selectable modules
 SELECT_MODULE = [
 	"appModules",
 	"brailleDisplayDrivers",
@@ -32,41 +37,59 @@ SELECT_MODULE = [
 	"visionEnhancementProviders",
 ]
 
-def create_addon_structure(base_folder, module, doc=False, locale=False):
-	"""Creates the basic structure of add-on in the specified directory."""
-	base_folder = Path(base_folder)  # Certifique-se de que base_folder é um objeto Path
-	addon_folder = base_folder / "addon"
+
+def createAddonStructure(baseFolder, module, doc=False, locale=False):
+	"""
+	Creates the basic structure of add-on in the specified directory.
+	"""
+	baseFolder = Path(baseFolder)
+	addonFolder = baseFolder / "addon"
 
 	try:
-		addon_folder.mkdir(parents=True, exist_ok=True)
-		(addon_folder / module).mkdir(exist_ok=True)
+		addonFolder.mkdir(parents=True, exist_ok=True)
+		(addonFolder / module).mkdir(exist_ok=True)
 
 		if doc:
-			(addon_folder / "doc").mkdir(exist_ok=True)
+			(addonFolder / "doc").mkdir(exist_ok=True)
 		if locale:
-			(addon_folder / "locale").mkdir(exist_ok=True)
+			(addonFolder / "locale").mkdir(exist_ok=True)
 
-		log.info("Addon structure created in {}".format(addon_folder))
+		log.info("Addon structure created in {}".format(addonFolder))
 		return True
 	except Exception as e:
 		log.error("Error creating addon structure: {}".format(e))
 		return False
 
 
-def fill_template(TEMPLATE_PATH, output_path, variables):
-	"""Fills a template file with the provided variables and saves it to the specified output path."""
-	template_path = Path(TEMPLATE_PATH)
-	output_path = Path(output_path)
+def fillTemplate(TEMPLATE_PATH, outputPath, variables):
+	"""
+	Fills a template file with the provided variables and saves it to the specified output path.
+
+	Improvements applied:
+	Robust path verification
+	Cleaner and more consistent logging
+	Removal of potential encoding issues
+	"""
+
+	templatePath = Path(TEMPLATE_PATH)
+	outputPath = Path(outputPath)
 
 	try:
-		content = template_path.read_text(encoding="utf-8")
+		if not templatePath.exists():
+			log.error(f"Template not found: {templatePath}")
+			return False
+
+		content = templatePath.read_text(encoding="utf-8")
+
 		for key, value in variables.items():
 			content = content.replace(f"{{{key}}}", str(value))
 
-		output_file = output_path / "buildVars.py"
-		output_file.write_text(content, encoding="utf-8")
-		log.info(f"Template successfully filled: {output_file}")
+		outputFile = outputPath / "buildVars.py"
+		outputFile.write_text(content, encoding="utf-8")
+
+		log.info(f"Template successfully filled: {outputFile}")
 		return True
+
 	except Exception as e:
 		log.error("Error processing template: {}".format(e))
 		return False
