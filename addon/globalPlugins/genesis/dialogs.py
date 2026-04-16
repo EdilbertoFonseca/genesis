@@ -2,11 +2,17 @@
 
 """
 Author: Edilberto Fonseca <edilberto.fonseca@outlook.com>
-Copyright: (C) 2025 Edilberto Fonseca
+Copyright: (C) 2025 - 2026 Edilberto Fonseca
 
 This file is covered by the GNU General Public License.
 See the file COPYING for more details or visit:
 https://www.gnu.org/licenses/gpl-2.0.html
+
+-------------------------------------------------------------------------
+AI DISCLOSURE / NOTA DE IA:
+This project utilizes AI for code refactoring and logic suggestions.
+All AI-generated code was manually reviewed and tested by the author.
+-------------------------------------------------------------------------
 
 Created on: 09/09/2025
 """
@@ -17,16 +23,16 @@ import wx
 from gui import guiHelper
 from gui.settingsDialogs import SettingsPanel
 
-from .repo import validate_token
+from .repo import validateToken
 from .varsConfig import (
-	get_allow_github_publish,
-	get_project_dir,
-	get_repo_owner,
-	get_repo_private,
-	set_allow_github_publish,
-	set_project_dir,
-	set_repo_owner,
-	set_repo_private,
+	getAllowGithubPublish,
+	getProjectDir,
+	getRepoOwner,
+	getRepoPrivate,
+	setAllowGithubPublish,
+	setProjectDir,
+	setRepoOwner,
+	setRepoPrivate,
 )
 
 # Initialize translation support
@@ -38,21 +44,22 @@ class ProgressDialog(wx.Dialog):
 		super().__init__(parent, title=title, size=wx.Size(400, 150))
 
 		self.progress = wx.Gauge(self, range=100, style=wx.GA_HORIZONTAL)
+		# translators: Initial status message shown in the progress dialog when an operation starts.
 		self.status = wx.StaticText(self, label=_("Starting..."))
-		self.cancel_button = wx.Button(self, label=_("Cancel"))
+		self.buttonCancel = wx.Button(self, label=_("Cancel"))
 		self.cancelled = False
 
-		self.cancel_button.Bind(wx.EVT_BUTTON, self.on_cancel)
+		self.buttonCancel.Bind(wx.EVT_BUTTON, self.onCancel)
 
 		sizer = wx.BoxSizer(wx.VERTICAL)
 		sizer.Add(self.status, 0, wx.ALL | wx.EXPAND, 10)
 		sizer.Add(self.progress, 0, wx.ALL | wx.EXPAND, 10)
-		sizer.Add(self.cancel_button, 0, wx.ALL | wx.ALIGN_CENTER, 10)
+		sizer.Add(self.buttonCancel, 0, wx.ALL | wx.ALIGN_CENTER, 10)
 
 		self.SetSizer(sizer)
 		self.Centre()
 
-	def on_cancel(self, event):
+	def onCancel(self, event):
 		self.cancelled = True
 
 
@@ -64,19 +71,22 @@ class GitHubAuthentication(wx.Dialog):
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
 		buttonSizer = wx.BoxSizer(wx.HORIZONTAL)
 
+		# translators: Label for the GitHub section in the authentication dialog.
 		gitBox = wx.StaticBox(panel, label=_("GitHub"))
 		gitSizer = wx.StaticBoxSizer(gitBox, wx.VERTICAL)
 
-		label_owner = wx.StaticText(panel, label=_("Username or organization:"))
-		gitSizer.Add(label_owner, 0, wx.ALL, 5)
-		self.git_owner = wx.TextCtrl(panel)
-		gitSizer.Add(self.git_owner, 1, wx.EXPAND | wx.ALL, 5)
-		self.git_owner.SetValue(get_repo_owner())
+		# translators: Label for the GitHub username or organization field.
+		labelOwner = wx.StaticText(panel, label=_("Username or organization:"))
+		gitSizer.Add(labelOwner, 0, wx.ALL, 5)
+		self.textGitOwner = wx.TextCtrl(panel)
+		gitSizer.Add(self.textGitOwner, 1, wx.EXPAND | wx.ALL, 5)
+		self.textGitOwner.SetValue(getRepoOwner())
 
-		label_token = wx.StaticText(panel, label=_("GitHub Access Token:"))
-		gitSizer.Add(label_token, 0, wx.ALL, 5)
-		self.git_token = wx.TextCtrl(panel, style=wx.TE_PASSWORD)
-		gitSizer.Add(self.git_token, 1, wx.EXPAND | wx.ALL, 5)
+		# translators: Label for the GitHub access token field.
+		labelToken = wx.StaticText(panel, label=_("GitHub Access Token:"))
+		gitSizer.Add(labelToken, 0, wx.ALL, 5)
+		self.textGitToken = wx.TextCtrl(panel, style=wx.TE_PASSWORD)
+		gitSizer.Add(self.textGitToken, 1, wx.EXPAND | wx.ALL, 5)
 
 		mainSizer.Add(gitSizer, 0, wx.EXPAND | wx.ALL, 10)
 
@@ -94,25 +104,37 @@ class GitHubAuthentication(wx.Dialog):
 		self.Fit()
 
 	def onOK(self, event):
-		owner = self.git_owner.GetValue().strip()
-		token = self.git_token.GetValue().strip()
+		owner = self.textGitOwner.GetValue().strip()
+		token = self.textGitToken.GetValue().strip()
 
 		if not owner:
-			gui.messageBox(_("The 'Username or organization name' field cannot be empty!"),
-						   _("Error"), wx.OK | wx.ICON_WARNING)
-			self.git_owner.SetFocus()
+			gui.messageBox(
+				# translators: Error message shown when the GitHub username or organization field is empty.
+				_("The 'Username or organization name' field cannot be empty!"),
+				_("Error"),
+				wx.OK | wx.ICON_WARNING,
+			)
+			self.textGitOwner.SetFocus()
 			return
 
 		if len(token) < 20:
-			gui.messageBox(_("The access token appears to be invalid or too short!"),
-						   _("Error"), wx.OK | wx.ICON_WARNING)
-			self.git_token.SetFocus()
+			gui.messageBox(
+				# translators: Error message shown when the GitHub access token field is invalid.
+				_("The access token appears to be invalid or too short!"),
+				_("Error"),
+				wx.OK | wx.ICON_WARNING,
+			)
+			self.textGitToken.SetFocus()
 			return
 
-		if not validate_token(token):
-			gui.messageBox(_("Invalid or unauthorized token."),
-						   _("Authentication Error"), wx.OK | wx.ICON_ERROR)
-			self.git_token.SetFocus()
+		if not validateToken(token):
+			gui.messageBox(
+				# translators: Error message shown when the GitHub access token is invalid or unauthorized.
+				_("Invalid or unauthorized token."),
+				_("Authentication Error"),
+				wx.OK | wx.ICON_ERROR,
+			)
+			self.textGitToken.SetFocus()
 			return
 
 		self.owner = owner
@@ -124,54 +146,61 @@ class GitHubAuthentication(wx.Dialog):
 
 
 class GenesisSettingsPanel(SettingsPanel):
+	# translators: Title of the settings panel for the Genesis add-on, shown in NVDA settings dialog.
 	title = _("Genesis settings")
 
-	def makeSettings(self, settingsSizer):
+	def makeSettings(self, sizer: wx.BoxSizer):
+		settingsSizer = sizer  # Helper to keep the code cleaner and more organized
 		settingsSizerHelper = guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
 		sizer = wx.BoxSizer(wx.VERTICAL)
 
+		# Allow publishing repo on GitHub
 		self.allowPublish = wx.CheckBox(
-			self, label=_("Allow publishing repository on GitHub")
+			self,
+			# translators: Label for the checkbox that allows publishing the repository on GitHub.
+			label=_("Allow publishing repository on GitHub"),
 		)
-		self.allowPublish.SetValue(get_allow_github_publish())
+		self.allowPublish.SetValue(getAllowGithubPublish())
 		sizer.Add(self.allowPublish, flag=wx.ALL, border=10)
 
+		# translators: Label for the checkbox that makes the repository private.
 		self.privateRepo = wx.CheckBox(self, label=_("Make repository private"))
-		self.privateRepo.SetValue(get_repo_private())
+		self.privateRepo.SetValue(getRepoPrivate())
 		sizer.Add(self.privateRepo, flag=wx.ALL, border=10)
 
+		# Owner name
 		ownerBox = wx.BoxSizer(wx.HORIZONTAL)
+		# translators: Label for the GitHub username or organization field.
 		ownerLabel = wx.StaticText(self, label=_("Username or organization:"))
 		self.ownerField = wx.TextCtrl(self)
-		self.ownerField.SetValue(get_repo_owner())
+		self.ownerField.SetValue(getRepoOwner())
 		ownerBox.Add(ownerLabel, flag=wx.ALL, border=10)
 		ownerBox.Add(self.ownerField, flag=wx.ALL, border=10)
 		sizer.Add(ownerBox)
 
-		# Project directory group
+		# Default project directory
 		projectBoxSizer = wx.StaticBoxSizer(
-			wx.HORIZONTAL, self, label=_("Default project directory:")
+			wx.HORIZONTAL,
+			self,
+			# translators: Label for the default project directory field.
+			label=_("Default project directory:"),
 		)
 		projectBox = projectBoxSizer.GetStaticBox()
 		projectGroup = guiHelper.BoxSizerHelper(self, sizer=projectBoxSizer)
 
-		# Directory selection control
 		self.projectPicker = wx.DirPickerCtrl(
 			projectBox,
+			# translators: Label for the default project directory field.
 			message=_("Choose where new add-ons will be created"),
 		)
-		self.projectPicker.SetPath(get_project_dir() or "")
-
-		# Add to group internal layout
+		self.projectPicker.SetPath(getProjectDir() or "")
 		projectGroup.addItem(self.projectPicker, flag=wx.EXPAND)
 
-		# Add to settings panel
 		settingsSizerHelper.addItem(projectGroup)
-
 		settingsSizer.Add(sizer)
 
 	def onSave(self):
-		set_allow_github_publish(self.allowPublish.Value)
-		set_repo_private(self.privateRepo.Value)
-		set_repo_owner(self.ownerField.Value)
-		set_project_dir(self.projectPicker.GetPath())
+		setAllowGithubPublish(self.allowPublish.GetValue())
+		setRepoPrivate(self.privateRepo.GetValue())
+		setRepoOwner(self.ownerField.GetValue())
+		setProjectDir(self.projectPicker.GetPath())

@@ -2,15 +2,15 @@
 # 3-Clause BSD License: https://opensource.org/license/bsd-3-clause/
 
 __all__ = [
-    "HEAD",
-    "Head",
-    "RefLog",
-    "RefLogEntry",
-    "Reference",
-    "RemoteReference",
-    "SymbolicReference",
-    "Tag",
-    "TagReference",
+	"HEAD",
+	"Head",
+	"RefLog",
+	"RefLogEntry",
+	"Reference",
+	"RemoteReference",
+	"SymbolicReference",
+	"Tag",
+	"TagReference",
 ]
 
 from .head import HEAD, Head

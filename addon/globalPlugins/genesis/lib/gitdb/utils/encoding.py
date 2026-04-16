@@ -1,18 +1,18 @@
 def force_bytes(data, encoding="utf-8"):
-    if isinstance(data, bytes):
-        return data
+	if isinstance(data, bytes):
+		return data
 
-    if isinstance(data, str):
-        return data.encode(encoding)
+	if isinstance(data, str):
+		return data.encode(encoding)
 
-    return data
+	return data
 
 
 def force_text(data, encoding="utf-8"):
-    if isinstance(data, str):
-        return data
+	if isinstance(data, str):
+		return data
 
-    if isinstance(data, bytes):
-        return data.decode(encoding)
+	if isinstance(data, bytes):
+		return data.decode(encoding)
 
-    return str(data, encoding)
+	return str(data, encoding)

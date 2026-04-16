@@ -4,12 +4,12 @@
 """Initialize the index package."""
 
 __all__ = [
-    "BaseIndexEntry",
-    "BlobFilter",
-    "CheckoutError",
-    "IndexEntry",
-    "IndexFile",
-    "StageType",
+	"BaseIndexEntry",
+	"BlobFilter",
+	"CheckoutError",
+	"IndexEntry",
+	"IndexFile",
+	"StageType",
 ]
 
 from .base import CheckoutError, IndexFile

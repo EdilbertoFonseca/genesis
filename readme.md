@@ -1,118 +1,125 @@
 # Genesis - NVDA Add-on Project Generator
 
-* **Author:** Edilberto Fonseca <edilberto.fonseca@outlook.com>  
-* **License:** [GPL 2](https://www.gnu.org/licenses/gpl-2.0.html)  
-* **Version:** 2025.1.0  
+- **Author:** Edilberto Fonseca <edilberto.fonseca@outlook.com>
+- **License:** [GPL 2](https://www.gnu.org/licenses/gpl-2.0.html)
+- **Version:** 2025.1.0
 
 ## Description
 
-Genesis is an NVDA add-on designed to simplify the creation of new add-on projects.  
-It provides an accessible interface for defining the initial metadata and automatically generates the entire project structure. When enabled, it can also create the project repository on your GitHub account.
+Genesis is an NVDA add-on designed to simplify the creation of add-on projects.
+It provides a fully accessible interface to define initial metadata and automatically generate the project structure.
 
-The project structure is generated based on the **official NVDA community template**:  
-https://github.com/nvaccess/addonTemplate
+Optionally, Genesis can create the remote repository on GitHub using the official template.
 
-## Main Features
+The generated structure is based on the official NVDA community template:
+[https://github.com/nvaccess/addonTemplate](https://github.com/nvaccess/addonTemplate)
 
-* Intuitive and accessible graphical interface.
-* Automatic project structure generation using the official NVDA add-on template.
-* Automatic filling of metadata such as name, version, author, and description.
-* Option to include documentation (`doc`) and localization (`locale`) folders.
-* Ability to clone the official NVDA repository.
-* **Optional GitHub integration** for creating a remote repository automatically.
-* Add-on-specific settings available in the NVDA configuration panel.
+## Main features
 
-## Target Audience
+- Intuitive and accessible graphical interface
+- Automatic generation of the add-on’s initial structure
+- Filling in essential metadata
+- Option to include documentation and localization folders
+- Option to clone the official NVDA repository
+- Optional GitHub integration
+- Dedicated settings panel in NVDA
 
-This add-on is ideal for:
+## Target audience
 
-* **Beginners** who want an easy introduction to NVDA add-on development.  
-* **Experienced developers** who want to accelerate project setup.
+The add-on is intended for:
+
+- Beginners who want to create their first add-on
+- Experienced developers who want to speed up the start of new projects
 
 ## Requirements
 
 ### To use Genesis
-No external requirements — the add-on works out of the box inside NVDA.
 
-### To develop your generated add-on
-Install the following:
+No external requirements. The add-on works directly in NVDA.
 
-* **Python 3.11 (32-bit recommended)** – https://www.python.org/downloads/windows/  
-* **Git** – https://git-scm.com/  
-* **Scons 4.5.2 or newer** – install via `pip install scons`  
-* **GNU Gettext** – needed for translation support  
-  * Windows: https://gnuwin32.sourceforge.net/downlinks/gettext.php  
-* **Markdown 3.3.0+** – optional, for converting documentation  
-  * Install via: `pip install markdown`
+### To develop the generated add-on
 
-### To publish to GitHub (optional)
+Install:
 
-* A GitHub account  
-* A Personal Access Token (PAT) with **repo** permission  
+- Python 3.13 (64-bit recommended)
+  [https://www.python.org/downloads/windows/](https://www.python.org/downloads/windows/)
+- Git
+  [https://git-scm.com/](https://git-scm.com/)
+- Scons 4.5.2 or higher
+  `pip install scons`
+- GNU Gettext
+  Required to compile translation files
+  [https://gnuwin32.sourceforge.net/downlinks/gettext.php](https://gnuwin32.sourceforge.net/downlinks/gettext.php)
+- Markdown 3.3.0+ (optional)
+  `pip install markdown`
 
-Publication only happens when enabled in:  
-**NVDA > Preferences > Settings > Genesis**
+### To publish on GitHub (optional)
+
+- GitHub account
+- Access token (PAT) with `repo` permission
+
+Remote publishing only occurs when enabled in:
+NVDA > Preferences > Settings > Genesis
 
 ## GitHub Authentication
 
-When the option **“Allow publishing repository on GitHub”** is enabled in Genesis settings, you will be prompted for your GitHub token.
+If the option “Allow publishing repository on GitHub” is enabled, Genesis will request your access token.
 
-If the option is disabled:
+When disabled:
 
-✔ No authentication dialog appears  
-✔ Nothing is sent to GitHub  
-✔ The project is generated locally only  
+- No authentication will be requested
+- Nothing will be sent to GitHub
+- The project will be created locally only
 
-### Creating a GitHub Token
+### How to generate a token on GitHub
 
-1. Visit: https://github.com/settings/tokens  
-2. Select **“Tokens (classic)” → “Generate new token (classic)”**  
-3. Name the token (e.g., *Genesis NVDA*)  
-4. Choose an expiration date  
-5. Grant the required permission:  
-   * `repo`  
-6. Generate the token and store it safely
+1. Go to [https://github.com/settings/tokens](https://github.com/settings/tokens)
+2. Navigate to "Tokens (classic)" → "Generate new token (classic)"
+3. Set a name
+4. Choose the expiration
+5. Select the `repo` permission
+6. Generate the token and store it securely
 
 ### Notes
 
-* Your token is **never saved** by Genesis.  
-* It is validated directly with GitHub.  
-* You may revoke it at any time.
+- The token is not stored by the add-on
+- It is validated directly by the GitHub API
+- It can be revoked at any time
 
 ## Installation
 
-### Through the Add-on Store
+### Via Add-on Store
 
-1. NVDA menu → **Tools** → **Add-on Store**  
-2. Open the **Available add-ons** tab  
-3. Search for **Genesis**  
-4. Click **Install**  
+1. NVDA > Tools > Add-on Store
+2. “Available” tab
+3. Search for “Genesis”
+4. Click “Install”
 5. Restart NVDA
 
-### Manual Installation
+### Manual installation
 
-1. Download the `genesis.nvda-addon` package  
-2. NVDA menu → Tools → **Manage add-ons**  
-3. Click **Install** and select the file  
-4. Restart NVDA  
+1. Download the file [`genesis.nvda-addon`](https://github.com/EdilbertoFonseca/genesis/)
+2. Press Enter on the downloaded file
+3. Follow the instructions to install the add-on
+4. Restart NVDA
 
-## Features
+## Technical characteristics
 
-* Uses the **official NVDA add-on template** as the project base  
-* Fully compatible with the NVDA add-on build system  
-* Remote repository creation is **optional**  
-* Metadata is applied automatically to all necessary files
+- Uses the official NVDA template as a base
+- Compatible with the official build system
+- Remote publishing is optional
+- Metadata automatically applied to the `buildVars.py` file
 
-## Keyboard Shortcuts
+## Keyboard shortcuts
 
-| Shortcut        | Action                                         |
-|----------------|------------------------------------------------|
-| `NVDA+Shift+G` | Opens Genesis                                  |
-| `Alt+G`        | Generates the new project                       |
-| `Alt+L`        | Clears all fields                               |
-| `Alt+T`        | Clones the official NVDA repository             |
-| `Alt+S`        | Closes Genesis                                  |
+| Shortcut   | Action                              |
+| ---------- | ----------------------------------- |
+| NVDA+Alt+G | Opens Genesis                       |
+| Alt+G      | Generates a new project             |
+| Alt+L      | Clears all fields                   |
+| Alt+T      | Clones the official NVDA repository |
+| Alt+S      | Closes Genesis                      |
 
 ## Translators
 
-* **Portuguese (Brazil):** Edilberto Fonseca
+- Portuguese (Brazil), pt_BR - Edilberto Fonseca

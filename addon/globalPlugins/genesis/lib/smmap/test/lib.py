@@ -1,72 +1,74 @@
 """Provide base classes for the test system"""
+
 from unittest import TestCase
 import os
 import tempfile
 
-__all__ = ['TestBase', 'FileCreator']
+__all__ = ["TestBase", "FileCreator"]
 
 
-#{ Utilities
+# { Utilities
+
 
 class FileCreator:
+	"""A instance which creates a temporary file with a prefix and a given size
+	and provides this info to the user.
+	Once it gets deleted, it will remove the temporary file as well."""
 
-    """A instance which creates a temporary file with a prefix and a given size
-    and provides this info to the user.
-    Once it gets deleted, it will remove the temporary file as well."""
-    __slots__ = ("_size", "_path")
+	__slots__ = ("_size", "_path")
 
-    def __init__(self, size, prefix=''):
-        assert size, "Require size to be larger 0"
+	def __init__(self, size, prefix=""):
+		assert size, "Require size to be larger 0"
 
-        self._size = size
+		self._size = size
 
-        with tempfile.NamedTemporaryFile("wb", prefix=prefix, delete=False) as file:
-            self._path = file.name
-            file.seek(size - 1)
-            file.write(b'1')
+		with tempfile.NamedTemporaryFile("wb", prefix=prefix, delete=False) as file:
+			self._path = file.name
+			file.seek(size - 1)
+			file.write(b"1")
 
-        assert os.path.getsize(self.path) == size
+		assert os.path.getsize(self.path) == size
 
-    def __del__(self):
-        try:
-            os.remove(self.path)
-        except OSError:
-            pass
-        # END exception handling
+	def __del__(self):
+		try:
+			os.remove(self.path)
+		except OSError:
+			pass
+		# END exception handling
 
-    def __enter__(self):
-        return self
+	def __enter__(self):
+		return self
 
-    def __exit__(self, exc_type, exc_value, traceback):
-        self.__del__()
+	def __exit__(self, exc_type, exc_value, traceback):
+		self.__del__()
 
-    @property
-    def path(self):
-        return self._path
+	@property
+	def path(self):
+		return self._path
 
-    @property
-    def size(self):
-        return self._size
+	@property
+	def size(self):
+		return self._size
 
-#} END utilities
+
+# } END utilities
 
 
 class TestBase(TestCase):
+	"""Foundation used by all tests"""
 
-    """Foundation used by all tests"""
+	# { Configuration
+	k_window_test_size = 1000 * 1000 * 8 + 5195
+	# } END configuration
 
-    #{ Configuration
-    k_window_test_size = 1000 * 1000 * 8 + 5195
-    #} END configuration
+	# { Overrides
+	@classmethod
+	def setUpAll(cls):
+		# nothing for now
+		pass
 
-    #{ Overrides
-    @classmethod
-    def setUpAll(cls):
-        # nothing for now
-        pass
+	# END overrides
 
-    # END overrides
+	# { Interface
 
-    #{ Interface
-
-    #} END interface
+	# } END interface
