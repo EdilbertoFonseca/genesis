@@ -2,7 +2,7 @@
 
 - **Autor:** Edilberto Fonseca <edilberto.fonseca@outlook.com>
 - **Licença:** [GPL 2](https://www.gnu.org/licenses/gpl-2.0.html)
-- **Versão:** 2025.1.0
+- **Versão:** 2026.1.0
 
 ## Descrição
 
@@ -120,6 +120,12 @@ Quando desativada:
 | Alt+T      | Clona o repositório oficial do NVDA |
 | Alt+S      | Fecha o Gênesis                     |
 
-## Tradutores
+## Tradução
 
-- Português (Brasil), pt_BR - Edilberto Fonseca
+As traduções para este complemento são gerenciadas por meio do [projeto de complementos do NVDA no Crowdin](https://crowdin.com/project/nvdaaddons).
+
+Para contribuir com uma tradução, crie uma conta no Crowdin, junte-se à equipe do idioma correspondente (se necessário) e traduza as strings de interface e documentação disponíveis diretamente no Crowdin.
+
+Você também pode usar o Poedit para trabalhar localmente com arquivos `.po` e `.xliff`. As traduções concluídas são sincronizadas com o repositório do complemento por meio do fluxo de trabalho de localização.
+
+Para dúvidas ou assistência, junte-se à [lista de discussão de traduções do NVDA](https://groups.io/g/nvda-translations).

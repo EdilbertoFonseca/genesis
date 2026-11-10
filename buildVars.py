@@ -10,7 +10,6 @@ from site_scons.site_tools.NVDATool.typings import AddonInfo, BrailleTables, Sym
 # which returns whatever is given to it as an argument.
 from site_scons.site_tools.NVDATool.utils import _
 
-
 # Add-on information variables
 addon_info = AddonInfo(
 	# add-on Name/identifier, internal for NVDA
@@ -18,7 +17,7 @@ addon_info = AddonInfo(
 	# Add-on summary/title, usually the user visible name of the add-on
 	# Translators: Summary/title for this add-on
 	# to be shown on installation and add-on information found in add-on store
-	addon_summary=_("Genesis - Add-on Project Generator for NVDA"),
+	addon_summary=_("""Genesis - Add-on Project Generator for NVDA"""),
 	# Add-on description
 	# Translators: Long description to be shown for this add-on on add-on information from add-on store
 	addon_description=_("""This NVDA add-on provides a practical and accessible tool for developers to efficiently create new add-ons.
@@ -27,7 +26,7 @@ It features an intuitive interface for configuring key project information - suc
 
 Shortcut: NVDA+Shift+G."""),
 	# version
-	addon_version="2025.1.0",
+	addon_version="2026.1.0",
 	# Brief changelog for this version
 	# Translators: what's new content for the add-on version to be shown in the add-on store
 	addon_changelog=_("""Changelog for the add-on version.
@@ -41,9 +40,9 @@ It can span multiple lines."""),
 	# Documentation file name
 	addon_docFileName="readme.html",
 	# Minimum NVDA version supported (e.g. "2019.3.0", minor version is optional)
-	addon_minimumNVDAVersion="2023.3",
+	addon_minimumNVDAVersion="2025.1.0",
 	# Last NVDA version supported/tested (e.g. "2024.4.0", ideally more recent than minimum version)
-	addon_lastTestedNVDAVersion="2025.3.2",
+	addon_lastTestedNVDAVersion="2026.1.0",
 	# Add-on update channel (default is None, denoting stable releases,
 	# and for development releases, use "dev".)
 	# Do not change unless you know what you are doing!
@@ -62,7 +61,7 @@ It can span multiple lines."""),
 # pythonSources = ["addon/globalPlugins/*.py"]
 # For more information on SCons Glob expressions please take a look at:
 # https://scons.org/doc/production/HTML/scons-user/apd.html
-pythonSources: list[str] = ["addon/*.py", "addon/globalPlugins/genesis/*.py"]
+pythonSources: list[str] = ['addon/*.py', 'addon/globalPlugins/genesis/*.py']
 
 # Files that contain strings for translation. Usually your python sources
 i18nSources: list[str] = pythonSources + ["buildVars.py"]
@@ -71,20 +70,20 @@ i18nSources: list[str] = pythonSources + ["buildVars.py"]
 # Paths are relative to the addon directory, not to the root directory of your addon sources.
 # You can either list every file (using ""/") as a path separator,
 # or use glob expressions.
-excludedFiles: list[str] = ["globalPlugins/genesis/lib"]
+excludedFiles: list[str] = ['globalPlugins/genesis/lib']
 
 # Base language for the NVDA add-on
 # If your add-on is written in a language other than english, modify this variable.
 # For example, set baseLanguage to "es" if your add-on is primarily written in spanish.
 # You must also edit .gitignore file to specify base language files to be ignored.
-baseLanguage: str = "en"
+baseLanguage: str = 'en'
 
 # Markdown extensions for add-on documentation
 # Most add-ons do not require additional Markdown extensions.
 # If you need to add support for markup such as tables, fill out the below list.
 # Extensions string must be of the form "markdown.extensions.extensionName"
 # e.g. "markdown.extensions.tables" to add tables.
-markdownExtensions: list[str] = ["tables"]
+markdownExtensions: list[str] = ['tables']
 
 # Custom braille translation tables
 # If your add-on includes custom braille tables (most will not), fill out this dictionary.
@@ -102,7 +101,7 @@ brailleTables: BrailleTables = {}
 # Each key is the name of the dictionary,
 # with keys inside recording the following attributes:
 # displayName (name of the speech dictionary shown to users and translatable),
-# mandatory (True when always enabled, False when not.
+# mandatory (True when always enabled, False when not).
 symbolDictionaries: SymbolDictionaries = {}
 
 # Custom speech dictionaries (distinct from symbol dictionaries above)

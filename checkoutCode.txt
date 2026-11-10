@@ -1,0 +1,25 @@
+F401 `git` imported but unused; consider using `importlib.util.find_spec` to test for availability
+  --> addon\globalPlugins\genesis\workerThreads.py:37:9
+   |
+35 | # GitPython import
+36 | try:
+37 |     import git
+   |            ^^^
+38 |     from git import Repo
+39 | except ImportError:
+   |
+help: Remove unused import: `git`
+
+F841 Local variable `repo` is assigned to but never used
+   --> addon\globalPlugins\genesis\workerThreads.py:244:3
+    |
+242 |             log.info("Removed .git from template")
+243 |
+244 |         repo = Repo.init(self.base_folder)
+    |         ^^^^
+245 |         log.info("Initialized new empty Git repo")
+    |
+help: Remove assignment to unused variable `repo`
+
+Found 2 errors.
+No fixes available (1 hidden fix can be enabled with the `--unsafe-fixes` option).

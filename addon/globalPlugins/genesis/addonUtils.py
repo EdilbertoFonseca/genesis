@@ -17,16 +17,22 @@ All AI-generated code was manually reviewed and tested by the author.
 Created on: 21/11/2024.
 """
 
+import os
+import re
+import tempfile
 from pathlib import Path
+
 import versionInfo
 from logHandler import log
 
+
 # Default add-on configuration
 DEFAULTS = {
-	"version": "2025.1.0",
-	"minNVDA": "2023.3.4",
-	"lastNVDA": versionInfo.version,  # versão do NVDA em execução
+	"version": "2026.1.0",
+	"minNVDA": "2025.1.0",
+	"lastNVDA": versionInfo.version,
 }
+
 
 # List of selectable modules
 SELECT_MODULE = [
@@ -40,10 +46,22 @@ SELECT_MODULE = [
 
 def createAddonStructure(baseFolder, module, doc=False, locale=False):
 	"""
-	Creates the basic structure of add-on in the specified directory.
+	Creates the basic structure of an add-on in the specified directory.
+
+	Args:
+		baseFolder: Base directory where the add-on structure will be created.
+		module: Selected NVDA module.
+		doc: Whether to create the documentation directory.
+		locale: Whether to create the localization directory.
+
+	Returns:
+		bool: True if the structure was created successfully, False otherwise.
 	"""
-	baseFolder = Path(baseFolder)
-	addonFolder = baseFolder / "addon"
+	if module not in SELECT_MODULE:
+		log.error(f"Invalid add-on module: {module}")
+		return False
+
+	addonFolder = Path(baseFolder) / "addon"
 
 	try:
 		addonFolder.mkdir(parents=True, exist_ok=True)
@@ -51,45 +69,138 @@ def createAddonStructure(baseFolder, module, doc=False, locale=False):
 
 		if doc:
 			(addonFolder / "doc").mkdir(exist_ok=True)
+
 		if locale:
 			(addonFolder / "locale").mkdir(exist_ok=True)
 
-		log.info("Addon structure created in {}".format(addonFolder))
+		log.info(f"Add-on structure created in {addonFolder}")
 		return True
-	except Exception as e:
-		log.error("Error creating addon structure: {}".format(e))
+
+	except OSError:
+		log.exception("Error creating add-on structure")
 		return False
 
 
-def fillTemplate(TEMPLATE_PATH, outputPath, variables):
+def _fillTemplateVariables(content, variables):
 	"""
-	Fills a template file with the provided variables and saves it to the specified output path.
+	Replaces template placeholders with their corresponding values.
 
-	Improvements applied:
-	Robust path verification
-	Cleaner and more consistent logging
-	Removal of potential encoding issues
+	Args:
+		content: Template content.
+		variables: Dictionary containing replacement variables.
+
+	Returns:
+		tuple: Processed content and a list of unresolved placeholders.
 	"""
+	if variables:
+		pattern = re.compile(
+			r"\{(" + "|".join(re.escape(key) for key in sorted(variables, key=len, reverse=True)) + r")\}",
+		)
 
-	templatePath = Path(TEMPLATE_PATH)
+		content = pattern.sub(
+			lambda match: str(variables[match.group(1)]),
+			content,
+		)
+
+	# Identify placeholders that were not replaced.
+	unresolved = re.findall(
+		r"\{([a-zA-Z_][a-zA-Z0-9_]*)\}",
+		content,
+	)
+
+	return content, sorted(set(unresolved))
+
+
+def fillTemplate(
+	TEMPLATE_PATH_BUILD_VARS,
+	TEMPLATE_PATH_PY_PROJECT,
+	outputPath,
+	variables,
+):
+	"""
+	Fills template files with the provided variables and saves them.
+
+	Args:
+		TEMPLATE_PATH_BUILD_VARS: Path to the buildVars.py template.
+		TEMPLATE_PATH_PY_PROJECT: Path to the pyproject.toml template.
+		outputPath: Destination directory.
+		variables: Dictionary containing template replacement variables.
+
+	Returns:
+		bool: True if both files were generated successfully, False otherwise.
+	"""
+	templatePaths = {
+		"buildVars.py": Path(TEMPLATE_PATH_BUILD_VARS),
+		"pyproject.toml": Path(TEMPLATE_PATH_PY_PROJECT),
+	}
+
 	outputPath = Path(outputPath)
+	tempFiles = {}
 
 	try:
-		if not templatePath.exists():
-			log.error(f"Template not found: {templatePath}")
+		# Validate template files.
+		for filename, templatePath in templatePaths.items():
+			if not templatePath.is_file():
+				log.error(f"Template file not found: {templatePath}")
+				return False
+
+		# Read and process all templates before writing any output.
+		processedFiles = {}
+
+		for filename, templatePath in templatePaths.items():
+			content = templatePath.read_text(encoding="utf-8")
+
+			content, unresolved = _fillTemplateVariables(
+				content,
+				variables,
+			)
+
+			if unresolved:
+				log.error(
+					f"Unresolved placeholders in {filename}: {', '.join(unresolved)}",
+				)
+				return False
+
+			processedFiles[filename] = content
+
+		# Ensure the destination directory exists.
+		outputPath.mkdir(parents=True, exist_ok=True)
+
+		if not outputPath.is_dir():
+			log.error(f"Output path is not a directory: {outputPath}")
 			return False
 
-		content = templatePath.read_text(encoding="utf-8")
+		# Write temporary files before replacing the destination files.
+		for filename, content in processedFiles.items():
+			with tempfile.NamedTemporaryFile(
+				mode="w",
+				encoding="utf-8",
+				dir=outputPath,
+				prefix=f".{filename}.",
+				suffix=".tmp",
+				delete=False,
+			) as tempFile:
+				tempFile.write(content)
+				tempFiles[filename] = Path(tempFile.name)
 
-		for key, value in variables.items():
-			content = content.replace(f"{{{key}}}", str(value))
+		# Replace destination files only after all temporary files
+		# have been successfully created.
+		for filename, tempPath in tempFiles.items():
+			outputFile = outputPath / filename
+			os.replace(tempPath, outputFile)
 
-		outputFile = outputPath / "buildVars.py"
-		outputFile.write_text(content, encoding="utf-8")
+			log.info(f"Template successfully generated: {outputFile}")
 
-		log.info(f"Template successfully filled: {outputFile}")
 		return True
 
-	except Exception as e:
-		log.error("Error processing template: {}".format(e))
+	except (OSError, UnicodeError, TypeError, ValueError):
+		log.exception("Error processing template files")
 		return False
+
+	finally:
+		# Remove any temporary files left behind.
+		for tempPath in tempFiles.values():
+			try:
+				tempPath.unlink(missing_ok=True)
+			except OSError:
+				log.warning(f"Could not remove temporary file: {tempPath}")

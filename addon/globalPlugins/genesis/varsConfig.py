@@ -31,7 +31,10 @@ addonHandler.initTranslation()
 ADDON_PATH = os.path.dirname(__file__)
 
 # buildVars template path
-TEMPLATE_PATH = os.path.join(ADDON_PATH, "buildVars.py.tpl")
+TEMPLATE_PATH_BUILD_VARS = os.path.join(ADDON_PATH, "buildVars.py.tpl")
+
+# pyproject template path
+TEMPLATE_PATH_PY_PROJECT = os.path.join(ADDON_PATH, "pyproject.toml.tpl")
 
 # Summary of the add-on (manifest)
 ADDON_SUMMARY = addonHandler.getCodeAddon().manifest["summary"]

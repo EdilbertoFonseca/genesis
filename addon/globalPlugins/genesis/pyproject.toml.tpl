@@ -1,0 +1,255 @@
+[build-system]
+requires = ["setuptools~=80.9", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "{name}"
+dynamic = ["version"]
+description = "{description}"
+maintainers = [
+	{name = "Author", email = "Email"},
+]
+requires-python = ">=3.13,<3.14"
+classifiers = [
+	"Development Status :: 5 - Production/Stable",
+	"Intended Audience :: End Users/Desktop",
+	"License :: OSI Approved :: GNU General Public License v2 or later (GPLv2+)",
+	"Operating System :: Microsoft :: Windows",
+	"Programming Language :: Python :: 3",
+	"Topic :: Accessibility",
+]
+readme = "readme.md"
+license = {file = "COPYING.TXT"}
+# This package is not installed as a library; every dependency is tooling used to
+# build, translate, or lint the add-on. They are declared as PEP 735 dependency groups.
+dependencies = []
+[project.urls]
+Repository = "https://github.com/{repoOwner}/{name}"
+
+# PEP 735 dependency groups. `uv sync` installs the `dev` group by default, which
+# pulls in every tool needed to build, translate, and lint the add-on.
+[dependency-groups]
+# Build add-on
+build = [
+	"scons==4.10.1",
+	"Markdown==3.10",
+]
+# Translations management
+l10n = [
+	"nh3==0.3.2",
+	"crowdin-api-client==1.24.1",
+	"lxml==6.0.2",
+	"mdx_truly_sane_lists==1.3",
+	"markdown-link-attr-modifier==0.2.1",
+	"mdx-gh-links==0.4",
+]
+# Lint
+lint = [
+	"uv==0.11.15",
+	"ruff==0.14.5",
+	"prek==0.4.8",
+	"pyright[nodejs]==1.1.408",
+]
+dev = [
+	{ include-group = "build" },
+	{ include-group = "l10n" },
+	{ include-group = "lint" },
+]
+
+[tool.ruff]
+line-length = 110
+
+builtins = [
+	# translation lookup
+	"_",
+	# translation lookup
+	"ngettext",
+	# translation lookup
+	"pgettext",
+	# translation lookup
+	"npgettext",
+]
+
+include = [
+	"*.py",
+	"sconstruct",
+]
+
+exclude = [
+	".git",
+	"__pycache__",
+	".venv",
+	"buildVars.py",
+	"tests",
+]
+
+[tool.ruff.format]
+indent-style = "tab"
+line-ending = "lf"
+
+[tool.ruff.lint.mccabe]
+max-complexity = 15
+
+[tool.ruff.lint]
+ignore = [
+	# indentation contains tabs
+	"W191",
+]
+logger-objects = ["logHandler.log"]
+
+[tool.ruff.lint.per-file-ignores]
+# sconscripts contains many inbuilt functions not recognised by the lint,
+# so ignore F821.
+"sconstruct" = ["F821"]
+
+[tool.pyright]
+venvPath = ".venv"
+venv = "."
+pythonPlatform = "Windows"
+typeCheckingMode = "strict"
+
+include = [
+	"**/*.py",
+]
+
+exclude = [
+	"sconstruct",
+	".git",
+	"__pycache__",
+	".venv",
+	"site_scons",
+	".github/scripts",
+	"tests",
+]
+
+# Tell pyright where to load python code from
+extraPaths = [
+	"./addon",
+	"../nvda/source",
+	".vscode/typings",
+]
+
+
+# General config
+analyzeUnannotatedFunctions = true
+deprecateTypingAliases = true
+
+# Stricter typing
+strictParameterNoneValue = true
+strictListInference = true
+strictDictionaryInference = true
+strictSetInference = true
+
+# Compliant rules
+reportAbstractUsage = true
+reportAssertAlwaysTrue = true
+reportAssertTypeFailure = true
+reportAssignmentType = true
+# reportAttributeAccessIssue = true
+reportCallInDefaultInitializer = true
+reportCallIssue = true
+reportConstantRedefinition = true
+reportDuplicateImport = true
+reportFunctionMemberAccess = true
+reportGeneralTypeIssues = true
+reportImplicitStringConcatenation = true
+# reportImportCycles = true
+reportIncompatibleMethodOverride = true
+reportIncompatibleVariableOverride = true
+reportIncompleteStub = true
+reportInconsistentConstructor = true
+reportInconsistentOverload = true
+reportIndexIssue = true
+reportInvalidStringEscapeSequence = true
+reportInvalidStubStatement = true
+reportInvalidTypeArguments = true
+reportInvalidTypeForm = true
+reportInvalidTypeVarUse = true
+reportMatchNotExhaustive = true
+reportMissingSuperCall = true
+reportMissingTypeArgument = true
+reportNoOverloadImplementation = true
+reportOperatorIssue = true
+reportOptionalCall = true
+reportOptionalContextManager = true
+reportOptionalIterable = true
+reportOptionalOperand = true
+reportOptionalSubscript = true
+reportOverlappingOverload = true
+reportPossiblyUnboundVariable = true
+reportPrivateImportUsage = true
+reportPrivateUsage = true
+reportPropertyTypeMismatch = true
+reportRedeclaration = true
+reportReturnType = true
+reportSelfClsParameterName = true
+reportTypeCommentUsage = true
+reportTypedDictNotRequiredAccess = true
+reportUnboundVariable = true
+reportUndefinedVariable = true
+reportUnhashable = true
+reportUninitializedInstanceVariable = true
+reportUnnecessaryCast = true
+reportUnnecessaryComparison = true
+reportUnnecessaryContains = true
+reportUnnecessaryIsInstance = true
+reportUnnecessaryTypeIgnoreComment = true
+reportUnsupportedDunderAll = true
+# reportUntypedBaseClass = true
+reportUntypedClassDecorator = true
+reportUntypedNamedTuple = true
+reportUnusedClass = true
+reportUnusedCoroutine = true
+reportUnusedExcept = true
+reportUnusedExpression = true
+reportUnusedFunction = true
+reportUnusedImport = true
+reportWildcardImportFromLibrary = true
+
+reportDeprecated = true
+reportUnknownLambdaType = true
+
+# Rules disabled due to NVDA Core and wxPython dynamic behavior
+# These rules generate false positives even when the code is correct.
+
+# wxPython accepts runtime coercions (e.g. size=(w, h), parent=Panel),
+# but its type stubs do not fully reflect this behavior.
+reportArgumentType = false
+
+# Some methods override abstract or base class methods
+reportImplicitOverride = false
+
+# NVDA modules (addonHandler, gui, globalVars, etc.) are injected into
+# sys.path at runtime by NVDA itself and are not importable in a
+# standard Python environment. Pyright cannot model this bootstrap.
+reportMissingImports = false
+reportMissingModuleSource = false
+
+# Parameters such as gesture, event, args and kwargs originate from
+# NVDA Core or wxPython callbacks and do not have stable static types.
+reportMissingParameterType = false
+reportUnknownArgumentType = false
+reportUnknownParameterType = false
+
+# Objects like gui.mainFrame and sysTrayIcon may legitimately be None
+# depending on NVDA state; asserting otherwise breaks NVDA conventions.
+reportOptionalMemberAccess = false
+
+# wxPython methods (e.g. Add, Append, prePopup) return values that are
+# intentionally ignored; the side effects are what matter.
+reportUnusedCallResult = false
+
+# NVDA uses dynamic attributes extensively (e.g. ADDON_SUMMARY,
+# manifest, script methods, gui helpers).
+reportUnknownMemberType = false
+reportUnusedVariable = false
+reportUnknownVariableType = false
+
+# wxPython is bundled with NVDA and does not ship with official type stubs.
+# Pyright cannot resolve wx types in a standard environment.
+reportMissingTypeStubs = false
+
+reportAttributeAccessIssue = false
+reportImportCycles = false
+reportUntypedBaseClass = false
+reportUntypedFunctionDecorator = false

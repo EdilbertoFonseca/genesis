@@ -76,23 +76,23 @@ def copyFolder(origin, destination):
 
 	# Itra on items within the source folder
 	for item in os.listdir(origin):
-		origin_item = os.path.join(origin, item)
-		destino_item = os.path.join(destination, item)
+		originItem = os.path.join(origin, item)
+		destinoItem = os.path.join(destination, item)
 
-		if os.path.isdir(origin_item):
-			copyFolder(origin_item, destino_item)
+		if os.path.isdir(originItem):
+			copyFolder(originItem, destinoItem)
 		else:
 			try:
-				shutil.copy2(origin_item, destino_item)
+				shutil.copy2(originItem, destinoItem)
 
 				# Restores the hidden attribute in the .git folder, if it exists in the destination
-				git_folder = Path(destination) / ".git"
-				if git_folder.exists():
-					setHiddenAttribute(git_folder)
+				gitFolder = Path(destination) / ".git"
+				if gitFolder.exists():
+					setHiddenAttribute(gitFolder)
 
 			except (PermissionError, IOError) as e:
 				# translators: This message is shown when there is an error copying a file.
-				msg = "Copying error {} -> {}: {}".format(origin_item, destino_item, e)
+				msg = "Copying error {} -> {}: {}".format(originItem, destinoItem, e)
 				log.warning(msg)
 				wx.MessageBox(msg, _("Warning"), wx.OK | wx.ICON_WARNING)
 
@@ -106,9 +106,9 @@ def removeDirectory(self, directory):
 			)
 			for root, dirs, files in os.walk(directory, topdown=False):
 				for name in files:
-					file_path = os.path.join(root, name)
-					os.chmod(file_path, 0o777)
-					os.remove(file_path)
+					filePath = os.path.join(root, name)
+					os.chmod(filePath, 0o777)
+					os.remove(filePath)
 				for name in dirs:
 					os.rmdir(os.path.join(root, name))
 			os.rmdir(directory)
