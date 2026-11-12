@@ -23,15 +23,18 @@ import re
 import addonHandler
 import gui
 import wx
+from logHandler import log
 
 from .addonUtils import DEFAULTS, SELECT_MODULE
-from .dialogs import GitHubAuthentication, ProgressDialog
+from .credentialManager import hasGithubToken
+from .dialogs import GenesisSettingsPanel, GitHubAuthentication, ProgressDialog
 from .varsConfig import (
 	TEMPLATE_PATH_BUILD_VARS,
 	TEMPLATE_PATH_PY_PROJECT,
 	getAllowGithubPublish,
 	getProjectDir,
 	getRepoOwner,
+	getRepoPrivate,
 )
 from .workerThreads import AddonCreationThread, CloneNVDARepoThread
 
@@ -265,6 +268,12 @@ class Genesis(wx.Dialog):
 		)
 		generateButton.Bind(wx.EVT_BUTTON, self.onGenerate)
 
+		manageGitHubTokenButton = wx.Button(
+			panel,
+			label=_("Manage GitHub token. "),
+		)
+		manageGitHubTokenButton.Bind(wx.EVT_BUTTON, self.onManageGitHubToken)
+
 		cleanButton = wx.Button(
 			panel,
 			label=_("C&lean"),
@@ -280,6 +289,12 @@ class Genesis(wx.Dialog):
 			self.onCloneRepository,
 		)
 
+		settingsButton = wx.Button(
+			panel,
+			label=_("&Settings"),
+		)
+		settingsButton.Bind(wx.EVT_BUTTON, self.onSettings)
+
 		cancelButton = wx.Button(
 			panel,
 			wx.ID_CANCEL,
@@ -288,6 +303,7 @@ class Genesis(wx.Dialog):
 		cancelButton.Bind(wx.EVT_BUTTON, self.onCancel)
 
 		actionSizer.Add(generateButton, 0, wx.ALL, 5)
+		actionSizer.Add(manageGitHubTokenButton, 0, wx.ALL, 5)
 		actionSizer.Add(cleanButton, 0, wx.ALL, 5)
 		actionSizer.Add(cloneButton, 0, wx.ALL, 5)
 		actionSizer.Add(cancelButton, 0, wx.ALL, 5)
@@ -442,29 +458,23 @@ class Genesis(wx.Dialog):
 			return
 
 		# 5 - GitHub authentication
-		token = ""
-		owner = ""
+		publishEnabled = getAllowGithubPublish()
 
-		if getAllowGithubPublish():
-			auth = GitHubAuthentication(
-				self,
-				_("GitHub Authentication"),
-			)
+		# Get the repository owner from Genesis configuration.
+		repoOwner = (getRepoOwner() or "").strip()
 
-			try:
-				authResult = auth.ShowModal()
+		# Set the owner only when GitHub publishing is enabled.
+		owner = repoOwner if publishEnabled else ""
 
-				if authResult == wx.ID_OK:
-					token = auth.token
-					owner = auth.owner
-
-			finally:
-				auth.Destroy()
-
-			if not token or not owner:
+		if publishEnabled:
+			if not owner:
 				self.showMessage(
-					_("Authentication was canceled or failed."),
-					_("Error"),
+					_(
+						"GitHub username or organization is not configured. "
+						+ "Please configure it in Genesis settings.",
+					),
+					_("Missing information"),
+					wx.OK | wx.ICON_WARNING,
 				)
 				return
 
@@ -476,15 +486,73 @@ class Genesis(wx.Dialog):
 				)
 				return
 
+			# Check whether a GitHub token is stored.
+			try:
+				tokenExists = hasGithubToken()
+
+			except Exception:
+				log.exception(
+					"Failed to check the stored GitHub credential.",
+				)
+
+				self.showMessage(
+					_(
+						"Unable to access the GitHub credential stored " + "in Windows Credential Manager.",
+					),
+					_("Authentication error"),
+					wx.OK | wx.ICON_ERROR,
+				)
+				return
+
+			# Request a token if no credential is stored.
+			if not tokenExists:
+				auth = GitHubAuthentication(
+					self,
+					_("GitHub Authentication"),
+				)
+
+				try:
+					authResult = auth.ShowModal()
+
+				finally:
+					auth.Destroy()
+
+				if authResult != wx.ID_OK:
+					return
+
+				# Confirm that the credential was successfully stored.
+				try:
+					if not hasGithubToken():
+						self.showMessage(
+							_(
+								"No GitHub access token was found. "
+								+ "Please register a token before continuing.",
+							),
+							_("Authentication error"),
+							wx.OK | wx.ICON_WARNING,
+						)
+						return
+
+				except Exception:
+					log.exception(
+						"Failed to verify the newly stored GitHub credential.",
+					)
+
+					self.showMessage(
+						_(
+							"Unable to access the GitHub credential stored "
+							+ "in Windows Credential Manager.",
+						),
+						_("Authentication error"),
+						wx.OK | wx.ICON_ERROR,
+					)
+					return
+
 		# 6 - Prepare creation
 		self.baseFolder = os.path.join(
 			self.destinationFolder,
 			self.newFolderName,
 		)
-
-		# Use the authenticated owner when publishing.
-		# Otherwise, use the owner stored in the add-on configuration.
-		repoOwner = owner or (getRepoOwner() or "").strip()
 
 		templateVariables = {
 			"name": self.newFolderName,
@@ -513,14 +581,23 @@ class Genesis(wx.Dialog):
 			self.newFolderName,
 			self.desc,
 			owner,
-			token,
-			getAllowGithubPublish(),
+			getRepoPrivate(),
 			TEMPLATE_PATH_BUILD_VARS,
 			TEMPLATE_PATH_PY_PROJECT,
 			templateVariables,
 		)
-
 		self.creationThread.start()
+
+	def onManageGitHubToken(self, event):
+		dlg = GitHubAuthentication(
+			self,
+			_("GitHub Authentication"),
+		)
+
+		gui.mainFrame.prePopup()
+		dlg.CentreOnScreen()
+		dlg.Show()
+		gui.mainFrame.postPopup()
 
 	# CLEAN
 	def onClean(self, event):
@@ -574,6 +651,16 @@ class Genesis(wx.Dialog):
 				progress,
 			)
 			thread.start()
+
+	def onSettings(self, event):
+		method = getattr(gui.mainFrame, "popupSettingsDialog", None)
+		if callable(method):
+			method(
+				gui.settingsDialogs.NVDASettingsDialog,
+				GenesisSettingsPanel,
+			)
+		else:
+			log.warning("popupSettingsDialog not available")
 
 	# CANCEL
 	def onCancel(self, event):

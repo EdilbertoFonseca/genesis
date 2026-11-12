@@ -31,9 +31,9 @@ It can span multiple lines."""),
 	# Author(s)
 	addon_author="{author}",
 	# URL for the add-on documentation support
-	addon_url=None,
+	addon_url="https://github.com/{repoOwner}/{name}",
 	# URL for the add-on repository where the source code can be found
-	addon_sourceURL=None,
+	addon_sourceURL="https://github.com/{repoOwner}/{name}",
 	# Documentation file name
 	addon_docFileName="readme.html",
 	# Minimum NVDA version supported (e.g. "2019.3.0", minor version is optional)

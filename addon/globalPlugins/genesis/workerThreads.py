@@ -35,8 +35,9 @@ import wx
 from logHandler import log
 
 from .addonUtils import createAddonStructure, fillTemplate
+from .credentialManager import getGithubToken
 from .repo import createRepoFromGithubTemplate
-from .varsConfig import ADDON_PATH, getAllowGithubPublish, getRepoOwner
+from .varsConfig import ADDON_PATH, getAllowGithubPublish
 
 LIB_PATH = os.path.join(ADDON_PATH, "lib")
 if LIB_PATH not in sys.path:
@@ -221,7 +222,6 @@ class AddonCreationThread(threading.Thread):
 		repoName,
 		description,
 		owner,
-		token,
 		private,
 		templatePathBuildVars,
 		templatePathPyProject,
@@ -233,8 +233,7 @@ class AddonCreationThread(threading.Thread):
 		self.baseFolder = baseFolder
 		self.repoName = repoName
 		self.description = description
-		self.owner = (getRepoOwner() or owner or "").strip()
-		self.token = token
+		self.owner = (owner or "").strip()
 		self.private = private
 		self.templatePathBuildVars = templatePathBuildVars
 		self.templatePathPyProject = templatePathPyProject
@@ -242,12 +241,34 @@ class AddonCreationThread(threading.Thread):
 
 		self.officialTemplateURL = "https://github.com/nvaccess/addonTemplate.git"
 
+		self.token = None
+
 		self.publishEnabled = bool(
-			getAllowGithubPublish() and self.owner and self.token,
+			getAllowGithubPublish() and self.owner,
 		)
 
 	def run(self):
 		try:
+			if self.publishEnabled:
+				try:
+					self.token = getGithubToken()
+
+				except Exception as e:
+					raise RuntimeError(
+						_(
+							"Unable to retrieve the GitHub access token "
+							+ "from Windows Credential Manager.",
+						),
+					) from e
+
+				if not self.token:
+					raise RuntimeError(
+						_(
+							"GitHub authentication token is missing. "
+							+ "Please register a token before continuing.",
+						),
+					)
+
 			step = 0
 			stepInc = 20
 

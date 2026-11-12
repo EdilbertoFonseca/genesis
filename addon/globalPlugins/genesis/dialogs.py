@@ -22,7 +22,13 @@ import gui
 import wx
 from gui import guiHelper
 from gui.settingsDialogs import SettingsPanel
+from logHandler import log
 
+from .credentialManager import (
+	deleteGithubToken,
+	getGithubToken,
+	saveGithubToken,
+)
 from .repo import validateToken
 from .varsConfig import (
 	getAllowGithubPublish,
@@ -64,64 +70,146 @@ class ProgressDialog(wx.Dialog):
 
 
 class GitHubAuthentication(wx.Dialog):
+	"""
+	Dialog for managing the GitHub access token.
+
+	The token is stored in the Windows Credential Manager.
+	"""
+
 	def __init__(self, parent, title):
 		super().__init__(parent, title=title)
+
+		self.tokenExists = False
 
 		panel = wx.Panel(self)
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
 		buttonSizer = wx.BoxSizer(wx.HORIZONTAL)
 
-		# translators: Label for the GitHub section in the authentication dialog.
-		gitBox = wx.StaticBox(panel, label=_("GitHub"))
+		gitBox = wx.StaticBox(
+			panel,
+			label=_("GitHub authentication"),
+		)
 		gitSizer = wx.StaticBoxSizer(gitBox, wx.VERTICAL)
 
-		# translators: Label for the GitHub username or organization field.
-		labelOwner = wx.StaticText(panel, label=_("Username or organization:"))
-		gitSizer.Add(labelOwner, 0, wx.ALL, 5)
-		self.textGitOwner = wx.TextCtrl(panel)
-		gitSizer.Add(self.textGitOwner, 1, wx.EXPAND | wx.ALL, 5)
-		self.textGitOwner.SetValue(getRepoOwner())
+		self.statusLabel = wx.StaticText(panel, label="")
+		gitSizer.Add(
+			self.statusLabel,
+			0,
+			wx.EXPAND | wx.ALL,
+			5,
+		)
 
-		# translators: Label for the GitHub access token field.
-		labelToken = wx.StaticText(panel, label=_("GitHub Access Token:"))
-		gitSizer.Add(labelToken, 0, wx.ALL, 5)
-		self.textGitToken = wx.TextCtrl(panel, style=wx.TE_PASSWORD)
-		gitSizer.Add(self.textGitToken, 1, wx.EXPAND | wx.ALL, 5)
+		labelToken = wx.StaticText(
+			panel,
+			label=_("GitHub access token:"),
+		)
+		gitSizer.Add(
+			labelToken,
+			0,
+			wx.ALL,
+			5,
+		)
 
-		mainSizer.Add(gitSizer, 0, wx.EXPAND | wx.ALL, 10)
+		self.textGitToken = wx.TextCtrl(
+			panel,
+			style=wx.TE_PASSWORD,
+		)
+		gitSizer.Add(
+			self.textGitToken,
+			0,
+			wx.EXPAND | wx.ALL,
+			5,
+		)
 
-		self.buttonOk = wx.Button(panel, wx.ID_OK, label=_("&Ok"))
-		self.buttonOk.Bind(wx.EVT_BUTTON, self.onOK)
+		mainSizer.Add(
+			gitSizer,
+			0,
+			wx.EXPAND | wx.ALL,
+			10,
+		)
 
-		self.buttonCancel = wx.Button(panel, wx.ID_CANCEL, label=_("&Cancel"))
+		self.buttonSave = wx.Button(
+			panel,
+			wx.ID_OK,
+			label=_("&Save token"),
+		)
+		self.buttonSave.Bind(wx.EVT_BUTTON, self.onSave)
+
+		self.buttonRemove = wx.Button(
+			panel,
+			wx.ID_ANY,
+			label=_("&Remove token"),
+		)
+		self.buttonRemove.Bind(wx.EVT_BUTTON, self.onRemove)
+
+		self.buttonCancel = wx.Button(
+			panel,
+			wx.ID_CANCEL,
+			label=_("&Cancel"),
+		)
 		self.buttonCancel.Bind(wx.EVT_BUTTON, self.onCancel)
 
-		buttonSizer.Add(self.buttonOk, 0, wx.ALL, 5)
+		buttonSizer.Add(self.buttonSave, 0, wx.ALL, 5)
+		buttonSizer.Add(self.buttonRemove, 0, wx.ALL, 5)
 		buttonSizer.Add(self.buttonCancel, 0, wx.ALL, 5)
 
-		mainSizer.Add(buttonSizer, 0, wx.ALIGN_CENTER)
-		panel.SetSizer(mainSizer)
-		self.Fit()
+		mainSizer.Add(
+			buttonSizer,
+			0,
+			wx.ALIGN_CENTER | wx.ALL,
+			5,
+		)
 
-	def onOK(self, event):
-		owner = self.textGitOwner.GetValue().strip()
+		panel.SetSizer(mainSizer)
+
+		self.checkCredential()
+		self.Fit()
+		self.CentreOnParent()
+
+	def checkCredential(self):
+		"""
+		Check whether a GitHub token is stored.
+
+		The token itself is never displayed or loaded into the text field.
+		"""
+
+		try:
+			token = getGithubToken()
+			self.tokenExists = token is not None
+
+			if self.tokenExists:
+				self.statusLabel.SetLabel(
+					_("A GitHub access token is already stored."),
+				)
+			else:
+				self.statusLabel.SetLabel(
+					_("No GitHub access token is currently stored."),
+				)
+
+		except Exception:
+			self.tokenExists = False
+
+			self.statusLabel.SetLabel(
+				_("Unable to access the stored GitHub credential."),
+			)
+
+			log.exception(
+				"Failed to check the GitHub credential.",
+			)
+
+		self.buttonRemove.Enable(self.tokenExists)
+
+	def onSave(self, event):
+		"""
+		Validate and save the GitHub access token.
+		"""
+
 		token = self.textGitToken.GetValue().strip()
 
-		if not owner:
+		if not token:
 			gui.messageBox(
-				# translators: Error message shown when the GitHub username or organization field is empty.
-				_("The 'Username or organization name' field cannot be empty!"),
-				_("Error"),
-				wx.OK | wx.ICON_WARNING,
-			)
-			self.textGitOwner.SetFocus()
-			return
-
-		if len(token) < 20:
-			gui.messageBox(
-				# translators: Error message shown when the GitHub access token field is invalid.
-				_("The access token appears to be invalid or too short!"),
-				_("Error"),
+				_("Please enter a GitHub access token."),
+				_("Missing information"),
 				wx.OK | wx.ICON_WARNING,
 			)
 			self.textGitToken.SetFocus()
@@ -129,19 +217,87 @@ class GitHubAuthentication(wx.Dialog):
 
 		if not validateToken(token):
 			gui.messageBox(
-				# translators: Error message shown when the GitHub access token is invalid or unauthorized.
-				_("Invalid or unauthorized token."),
-				_("Authentication Error"),
+				_(
+					"The GitHub access token is invalid or could not "
+					+ "be validated. Please check your token and try again.",
+				),
+				_("Authentication error"),
 				wx.OK | wx.ICON_ERROR,
 			)
 			self.textGitToken.SetFocus()
 			return
 
-		self.owner = owner
-		self.token = token
+		try:
+			saveGithubToken(token)
+
+		except Exception:
+			log.exception(
+				"Failed to save the GitHub access token.",
+			)
+
+			gui.messageBox(
+				_(
+					"Failed to save the GitHub access token " + "in Windows Credential Manager.",
+				),
+				_("Error"),
+				wx.OK | wx.ICON_ERROR,
+			)
+			return
+
+		self.tokenExists = True
 		self.EndModal(wx.ID_OK)
 
+	def onRemove(self, event):
+		"""
+		Remove the stored GitHub access token after confirmation.
+		"""
+
+		if not self.tokenExists:
+			return
+
+		result = gui.messageBox(
+			_(
+				"Are you sure you want to remove the stored GitHub access token?",
+			),
+			_("Confirm removal"),
+			wx.YES_NO | wx.ICON_WARNING,
+		)
+
+		if result != wx.YES:
+			return
+
+		try:
+			deleteGithubToken()
+
+		except Exception:
+			log.exception(
+				"Failed to remove the GitHub access token.",
+			)
+
+			gui.messageBox(
+				_(
+					"Failed to remove the GitHub access token " + "from Windows Credential Manager.",
+				),
+				_("Error"),
+				wx.OK | wx.ICON_ERROR,
+			)
+			return
+
+		self.tokenExists = False
+
+		gui.messageBox(
+			_("The GitHub access token was successfully removed."),
+			_("Success"),
+			wx.OK | wx.ICON_INFORMATION,
+		)
+
+		self.EndModal(wx.ID_CANCEL)
+
 	def onCancel(self, event):
+		"""
+		Close the dialog without changing the stored credential.
+		"""
+
 		self.EndModal(wx.ID_CANCEL)
 
 
