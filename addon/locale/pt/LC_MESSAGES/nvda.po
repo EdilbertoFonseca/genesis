@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 'genesis' '2026.1.0'\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
-"POT-Creation-Date: 2026-11-11 16:27-0300\n"
-"PO-Revision-Date: 2026-11-11 16:28-0300\n"
+"POT-Creation-Date: 2026-11-13 14:50-0300\n"
+"PO-Revision-Date: 2026-11-13 14:51-0300\n"
 "Last-Translator: Edilberto Fonseca <edilberto.fonseca@outlook.com>\n"
 "Language-Team: Edilberto Fonseca <edilberto.fonseca@outlook.com>\n"
 "Language: pt_BR\n"
@@ -34,375 +34,351 @@ msgid "An instance of {} is already open."
 msgstr "Uma instância de {} já está aberta."
 
 #. translators: Initial status message shown in the progress dialog when an operation starts.
-#: addon\globalPlugins\genesis\dialogs.py:54
+#: addon\globalPlugins\genesis\dialogs.py:58
 msgid "Starting..."
 msgstr "Iniciando..."
 
-#: addon\globalPlugins\genesis\dialogs.py:55
+#: addon\globalPlugins\genesis\dialogs.py:59
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: addon\globalPlugins\genesis\dialogs.py:90
+#: addon\globalPlugins\genesis\dialogs.py:94
 msgid "GitHub authentication"
 msgstr "Autenticação do GitHub"
 
-#: addon\globalPlugins\genesis\dialogs.py:104
+#: addon\globalPlugins\genesis\dialogs.py:108
 msgid "GitHub access token:"
 msgstr "Token de acesso do GitHub:"
 
-#: addon\globalPlugins\genesis\dialogs.py:134
+#: addon\globalPlugins\genesis\dialogs.py:138
 msgid "&Save token"
 msgstr "&Salvar token"
 
-#: addon\globalPlugins\genesis\dialogs.py:141
+#: addon\globalPlugins\genesis\dialogs.py:145
 msgid "&Remove token"
 msgstr "&Remover token"
 
-#: addon\globalPlugins\genesis\dialogs.py:148
-#: addon\globalPlugins\genesis\main.py:301
+#: addon\globalPlugins\genesis\dialogs.py:152
+#: addon\globalPlugins\genesis\main.py:303
 msgid "&Cancel"
 msgstr "&Cancelar"
 
-#: addon\globalPlugins\genesis\dialogs.py:182
+#: addon\globalPlugins\genesis\dialogs.py:186
 msgid "A GitHub access token is already stored."
 msgstr "Um token de acesso do GitHub já está armazenado."
 
-#: addon\globalPlugins\genesis\dialogs.py:186
+#: addon\globalPlugins\genesis\dialogs.py:190
 msgid "No GitHub access token is currently stored."
 msgstr "No momento, não há nenhum token de acesso do GitHub armazenado."
 
-#: addon\globalPlugins\genesis\dialogs.py:193
+#: addon\globalPlugins\genesis\dialogs.py:197
 msgid "Unable to access the stored GitHub credential."
 msgstr "Não foi possível acessar a credencial armazenada no GitHub."
 
-#: addon\globalPlugins\genesis\dialogs.py:211
+#: addon\globalPlugins\genesis\dialogs.py:215
 msgid "Please enter a GitHub access token."
 msgstr "Por favor, insira um token de acesso do GitHub."
 
-#: addon\globalPlugins\genesis\dialogs.py:212
-#: addon\globalPlugins\genesis\main.py:358
-#: addon\globalPlugins\genesis\main.py:410
-#: addon\globalPlugins\genesis\main.py:474
+#: addon\globalPlugins\genesis\dialogs.py:216
+#: addon\globalPlugins\genesis\main.py:360
+#: addon\globalPlugins\genesis\main.py:412
+#: addon\globalPlugins\genesis\main.py:480
 msgid "Missing information"
 msgstr "Informações ausentes"
 
-#: addon\globalPlugins\genesis\dialogs.py:221
+#: addon\globalPlugins\genesis\dialogs.py:225
 msgid "The GitHub access token is invalid or could not "
 msgstr "O token de acesso do GitHub é inválido ou não pôde ser utilizado. "
 
-#: addon\globalPlugins\genesis\dialogs.py:224
-#: addon\globalPlugins\genesis\main.py:500
-#: addon\globalPlugins\genesis\main.py:529
-#: addon\globalPlugins\genesis\main.py:544
+#: addon\globalPlugins\genesis\dialogs.py:228
+#: addon\globalPlugins\genesis\main.py:506
+#: addon\globalPlugins\genesis\main.py:535
+#: addon\globalPlugins\genesis\main.py:550
 msgid "Authentication error"
 msgstr "Erro de autenticação"
 
-#: addon\globalPlugins\genesis\dialogs.py:240
+#: addon\globalPlugins\genesis\dialogs.py:244
 msgid "Failed to save the GitHub access token "
 msgstr "Falha ao salvar o token de acesso do GitHub "
 
-#: addon\globalPlugins\genesis\dialogs.py:242
-#: addon\globalPlugins\genesis\dialogs.py:281
-#: addon\globalPlugins\genesis\fileUtils.py:63
-#: addon\globalPlugins\genesis\fileUtils.py:74
-#: addon\globalPlugins\genesis\main.py:368
+#: addon\globalPlugins\genesis\dialogs.py:246
+#: addon\globalPlugins\genesis\dialogs.py:285
+#: addon\globalPlugins\genesis\main.py:370
 msgid "Error"
 msgstr "Erro"
 
-#: addon\globalPlugins\genesis\dialogs.py:260
+#: addon\globalPlugins\genesis\dialogs.py:264
 msgid "Are you sure you want to remove the stored GitHub access token?"
 msgstr "Tem certeza de que deseja remover os dados armazenados?"
 
-#: addon\globalPlugins\genesis\dialogs.py:262
+#: addon\globalPlugins\genesis\dialogs.py:266
 msgid "Confirm removal"
 msgstr "Confirme a remoção"
 
-#: addon\globalPlugins\genesis\dialogs.py:279
+#: addon\globalPlugins\genesis\dialogs.py:283
 msgid "Failed to remove the GitHub access token "
 msgstr "Falha ao remover o token de acesso do GitHub "
 
-#: addon\globalPlugins\genesis\dialogs.py:289
+#: addon\globalPlugins\genesis\dialogs.py:293
 msgid "The GitHub access token was successfully removed."
 msgstr "O token de acesso do GitHub foi removido com sucesso."
 
-#: addon\globalPlugins\genesis\dialogs.py:290
-#: addon\globalPlugins\genesis\fileUtils.py:118
+#: addon\globalPlugins\genesis\dialogs.py:294
 msgid "Success"
 msgstr "Sucesso"
 
 #. translators: Title of the settings panel for the Genesis add-on, shown in NVDA settings dialog.
-#: addon\globalPlugins\genesis\dialogs.py:306
+#: addon\globalPlugins\genesis\dialogs.py:311
 msgid "Genesis settings"
 msgstr "Configurações do Genesis"
 
+#: addon\globalPlugins\genesis\dialogs.py:326
+msgid "Username or organization:"
+msgstr "Nome de usuário ou organização:"
+
 #. translators: Label for the checkbox that allows publishing the repository on GitHub.
-#: addon\globalPlugins\genesis\dialogs.py:317
+#: addon\globalPlugins\genesis\dialogs.py:345
 msgid "Allow publishing repository on GitHub"
 msgstr "Permitir publicar repositório no GitHub"
 
 #. translators: Label for the checkbox that makes the repository private.
-#: addon\globalPlugins\genesis\dialogs.py:323
+#: addon\globalPlugins\genesis\dialogs.py:355
 msgid "Make repository private"
 msgstr "Tornar repositório privado"
 
-#. translators: Label for the GitHub username or organization field.
-#: addon\globalPlugins\genesis\dialogs.py:330
-msgid "Username or organization:"
-msgstr "Nome de usuário ou organização:"
-
 #. translators: Label for the default project directory field.
-#: addon\globalPlugins\genesis\dialogs.py:342
+#: addon\globalPlugins\genesis\dialogs.py:366
 msgid "Default project directory:"
 msgstr "Diretório padrão do projeto:"
 
-#. translators: Label for the default project directory field.
-#: addon\globalPlugins\genesis\dialogs.py:350
+#: addon\globalPlugins\genesis\dialogs.py:376
 msgid "Choose where new add-ons will be created"
 msgstr "Escolha onde os novos complementos serão criados"
 
-#. translators: This message is shown when the source folder does not exist.
-#: addon\globalPlugins\genesis\fileUtils.py:61
-msgid "The folder of origin does not exist."
-msgstr "A pasta de origem não existe."
+#: addon\globalPlugins\genesis\dialogs.py:392
+msgid "Add-on creator:"
+msgstr "Criador do complemento:"
 
-#: addon\globalPlugins\genesis\fileUtils.py:97
-#: addon\globalPlugins\genesis\main.py:345
-#: addon\globalPlugins\genesis\main.py:672
-msgid "Warning"
-msgstr "Aviso"
-
-#: addon\globalPlugins\genesis\fileUtils.py:105
-msgid "Trying to remove the files from the directory {}..."
-msgstr "Tentando remover os arquivos do diretório {}..."
-
-#: addon\globalPlugins\genesis\fileUtils.py:117
-msgid "The directory {} was successfully removed!"
-msgstr "O diretório {} foi removido com sucesso!"
-
-#: addon\globalPlugins\genesis\fileUtils.py:124
-msgid "The directory {} does not exist."
-msgstr "O diretório {} não existe."
-
-#: addon\globalPlugins\genesis\fileUtils.py:125
-#: addon\globalPlugins\genesis\main.py:636
-msgid "Info"
-msgstr "Informações"
-
-#: addon\globalPlugins\genesis\fileUtils.py:132
-msgid "Error when trying to remove the directory: {}"
-msgstr "Erro ao tentar remover o diretório: {}"
+#: addon\globalPlugins\genesis\dialogs.py:417
+msgid "Email address:"
+msgstr "Endereço de e-mail:"
 
 #. Destination folder
-#: addon\globalPlugins\genesis\main.py:130
+#: addon\globalPlugins\genesis\main.py:132
 msgid "Local folder of the Add-on"
 msgstr "Pasta local do complemento"
 
-#: addon\globalPlugins\genesis\main.py:133
+#: addon\globalPlugins\genesis\main.py:135
 msgid "Directory path:"
 msgstr "Caminho do diretório:"
 
-#: addon\globalPlugins\genesis\main.py:136
+#: addon\globalPlugins\genesis\main.py:138
 msgid "Select the destination folder"
 msgstr "Selecione a pasta de destino"
 
 #. Add-on Information
-#: addon\globalPlugins\genesis\main.py:145
+#: addon\globalPlugins\genesis\main.py:147
 msgid "Add-on information"
 msgstr "Informações do complemento"
 
-#: addon\globalPlugins\genesis\main.py:148
+#: addon\globalPlugins\genesis\main.py:150
 msgid "Add-on name:"
 msgstr "Nome do complemento:"
 
-#: addon\globalPlugins\genesis\main.py:153
+#: addon\globalPlugins\genesis\main.py:155
 msgid "Summary:"
 msgstr "Resumo:"
 
-#: addon\globalPlugins\genesis\main.py:158
+#: addon\globalPlugins\genesis\main.py:160
 msgid "Description:"
 msgstr "Descrição:"
 
-#: addon\globalPlugins\genesis\main.py:166
+#: addon\globalPlugins\genesis\main.py:168
 msgid "Version:"
 msgstr "Versão:"
 
-#: addon\globalPlugins\genesis\main.py:174
+#: addon\globalPlugins\genesis\main.py:176
 msgid "Author:"
 msgstr "Autor:"
 
-#: addon\globalPlugins\genesis\main.py:181
+#: addon\globalPlugins\genesis\main.py:183
 msgid "Minimum version of NVDA:"
 msgstr "Versão mínima do NVDA:"
 
-#: addon\globalPlugins\genesis\main.py:197
+#: addon\globalPlugins\genesis\main.py:199
 msgid "Last tested NVDA version:"
 msgstr "Última versão do NVDA testada:"
 
 #. Module
-#: addon\globalPlugins\genesis\main.py:214
+#: addon\globalPlugins\genesis\main.py:216
 msgid "Add-on modules"
 msgstr "Módulos do complemento"
 
-#: addon\globalPlugins\genesis\main.py:217
+#: addon\globalPlugins\genesis\main.py:219
 msgid "Module:"
 msgstr "Módulo:"
 
-#: addon\globalPlugins\genesis\main.py:237
+#: addon\globalPlugins\genesis\main.py:239
 msgid "Add-on location"
 msgstr "Localização do complemento"
 
-#: addon\globalPlugins\genesis\main.py:246
+#: addon\globalPlugins\genesis\main.py:248
 msgid "Include doc"
 msgstr "Incluir documentação"
 
-#: addon\globalPlugins\genesis\main.py:250
+#: addon\globalPlugins\genesis\main.py:252
 msgid "Include locale"
 msgstr "Incluir localizações"
 
 #. Buttons
-#: addon\globalPlugins\genesis\main.py:259
+#: addon\globalPlugins\genesis\main.py:261
 msgid "Actions"
 msgstr "Ações"
 
-#: addon\globalPlugins\genesis\main.py:267
+#: addon\globalPlugins\genesis\main.py:269
 msgid "&Generate"
 msgstr "&Gerar"
 
-#: addon\globalPlugins\genesis\main.py:273
+#: addon\globalPlugins\genesis\main.py:275
 msgid "Manage GitHub token. "
 msgstr "Gerenciar token do GitHub. "
 
-#: addon\globalPlugins\genesis\main.py:279
+#: addon\globalPlugins\genesis\main.py:281
 msgid "C&lean"
 msgstr "&Limpar"
 
-#: addon\globalPlugins\genesis\main.py:285
+#: addon\globalPlugins\genesis\main.py:287
 msgid "Clone the official &NVDA repository."
 msgstr "Clonar o repositório oficial do &NVDA."
 
-#: addon\globalPlugins\genesis\main.py:294
+#: addon\globalPlugins\genesis\main.py:296
 msgid "&Settings"
 msgstr "&Configurações"
 
-#: addon\globalPlugins\genesis\main.py:344
+#: addon\globalPlugins\genesis\main.py:346
 msgid "An add-on creation is already in progress."
 msgstr "A criação de um complemento já está em andamento."
 
-#: addon\globalPlugins\genesis\main.py:357
+#: addon\globalPlugins\genesis\main.py:347
+#: addon\globalPlugins\genesis\main.py:676
+msgid "Warning"
+msgstr "Aviso"
+
+#: addon\globalPlugins\genesis\main.py:359
 msgid "Directory path cannot be empty."
 msgstr "O caminho do diretório não pode estar vazio."
 
-#: addon\globalPlugins\genesis\main.py:366
+#: addon\globalPlugins\genesis\main.py:368
 msgid ""
 "The selected directory is not writable. Please choose another directory."
 msgstr "O diretório selecionado não é gravável. Escolha outro diretório."
 
-#: addon\globalPlugins\genesis\main.py:378
+#: addon\globalPlugins\genesis\main.py:380
 msgid "Addon name"
 msgstr "Nome do complemento"
 
-#: addon\globalPlugins\genesis\main.py:382
+#: addon\globalPlugins\genesis\main.py:384
 msgid "Addon summary"
 msgstr "Resumo do complemento"
 
-#: addon\globalPlugins\genesis\main.py:386
+#: addon\globalPlugins\genesis\main.py:388
 msgid "Addon description"
 msgstr "Descrição do complemento"
 
-#: addon\globalPlugins\genesis\main.py:390
+#: addon\globalPlugins\genesis\main.py:392
 msgid "Author"
 msgstr "Autor"
 
-#: addon\globalPlugins\genesis\main.py:394
+#: addon\globalPlugins\genesis\main.py:396
 msgid "Version"
 msgstr "Versão"
 
-#: addon\globalPlugins\genesis\main.py:398
+#: addon\globalPlugins\genesis\main.py:400
 msgid "Minimum NVDA Version"
 msgstr "Versão mínima do NVDA"
 
-#: addon\globalPlugins\genesis\main.py:402
+#: addon\globalPlugins\genesis\main.py:404
 msgid "Last Tested NVDA Version"
 msgstr "Última versão testada do NVDA"
 
-#: addon\globalPlugins\genesis\main.py:409
+#: addon\globalPlugins\genesis\main.py:411
 msgid "The field '{}' cannot be empty."
 msgstr "O campo '{}' não pode estar vazio."
 
-#: addon\globalPlugins\genesis\main.py:420
+#: addon\globalPlugins\genesis\main.py:422
 msgid "Invalid add-on name. Use only uppercase or lowercase "
 msgstr ""
 "Nome do complemento inválido. Use apenas letras maiúsculas ou minúsculas "
 
-#: addon\globalPlugins\genesis\main.py:424
+#: addon\globalPlugins\genesis\main.py:426
 msgid "Invalid name"
 msgstr "Nome inválido"
 
-#: addon\globalPlugins\genesis\main.py:437
+#: addon\globalPlugins\genesis\main.py:439
 msgid "Minimum NVDA version is invalid. Expected format: "
 msgstr "A versão mínima do NVDA é inválida. Formato esperado: "
 
-#: addon\globalPlugins\genesis\main.py:441
-#: addon\globalPlugins\genesis\main.py:454
+#: addon\globalPlugins\genesis\main.py:443
+#: addon\globalPlugins\genesis\main.py:456
 msgid "Invalid version"
 msgstr "Versão inválida"
 
-#: addon\globalPlugins\genesis\main.py:450
+#: addon\globalPlugins\genesis\main.py:452
 msgid "Last tested NVDA version is invalid. Expected format: "
 msgstr "A última versão do NVDA testada é inválida. Formato esperado: "
 
-#: addon\globalPlugins\genesis\main.py:471
-msgid ""
-"GitHub username or organization is not configured.\n"
-"\t\t\t\t\t\tPlease configure it in Genesis settings."
-msgstr ""
-"O nome de usuário ou a organização do GitHub não está configurado(a).\n"
-"Por favor, configure-o(a) nas configurações do Genesis."
+#: addon\globalPlugins\genesis\main.py:477
+msgid "GitHub username or organization is not configured. "
+msgstr "O nome de usuário ou a organização do GitHub não estão configurados. "
 
-#: addon\globalPlugins\genesis\main.py:481
+#: addon\globalPlugins\genesis\main.py:487
 msgid "Owner contains invalid characters."
 msgstr "O proprietário contém caracteres inválidos."
 
-#: addon\globalPlugins\genesis\main.py:482
+#: addon\globalPlugins\genesis\main.py:488
 msgid "Invalid owner"
 msgstr "Proprietário inválido"
 
-#: addon\globalPlugins\genesis\main.py:498
-#: addon\globalPlugins\genesis\main.py:541
+#: addon\globalPlugins\genesis\main.py:504
+#: addon\globalPlugins\genesis\main.py:547
 msgid "Unable to access the GitHub credential stored "
 msgstr "Não foi possível acessar as credenciais do GitHub armazenadas. "
 
-#: addon\globalPlugins\genesis\main.py:509
-#: addon\globalPlugins\genesis\main.py:596
+#: addon\globalPlugins\genesis\main.py:515
+#: addon\globalPlugins\genesis\main.py:600
 msgid "GitHub Authentication"
 msgstr "Autenticação do GitHub"
 
-#: addon\globalPlugins\genesis\main.py:526
+#: addon\globalPlugins\genesis\main.py:532
 msgid "No GitHub access token was found. "
 msgstr "Nenhum token de acesso do GitHub foi encontrado. "
 
-#: addon\globalPlugins\genesis\main.py:576
+#: addon\globalPlugins\genesis\main.py:580
 msgid "Creating Add-on"
 msgstr "Criando um complemento"
 
-#: addon\globalPlugins\genesis\main.py:630
+#: addon\globalPlugins\genesis\main.py:634
 msgid "Choose the folder where the NVDA repository will be cloned:"
 msgstr "Escolha a pasta onde o repositório NVDA será clonado:"
 
-#: addon\globalPlugins\genesis\main.py:635
+#: addon\globalPlugins\genesis\main.py:639
 msgid "Clone canceled by the user."
 msgstr "Clonagem cancelada pelo usuário."
 
-#: addon\globalPlugins\genesis\main.py:645
+#: addon\globalPlugins\genesis\main.py:640
+msgid "Info"
+msgstr "Informações"
+
+#: addon\globalPlugins\genesis\main.py:649
 msgid "Cloning NVDA Repository"
 msgstr "Clonando o repositório NVDA"
 
-#: addon\globalPlugins\genesis\main.py:671
+#: addon\globalPlugins\genesis\main.py:675
 msgid "Please wait for the add-on creation to finish before closing."
 msgstr ""
 "Por favor, aguarde a conclusão da criação do complemento antes de fechar."
 
-#: addon\globalPlugins\genesis\main.py:686
+#: addon\globalPlugins\genesis\main.py:690
 msgid "Message"
 msgstr "Mensagem"
 
@@ -635,6 +611,28 @@ msgid ""
 msgstr ""
 "Registro de alterações da versão do complemento.\n"
 "Ele pode abranger várias linhas."
+
+#~ msgid "The folder of origin does not exist."
+#~ msgstr "A pasta de origem não existe."
+
+#~ msgid "Trying to remove the files from the directory {}..."
+#~ msgstr "Tentando remover os arquivos do diretório {}..."
+
+#~ msgid "The directory {} was successfully removed!"
+#~ msgstr "O diretório {} foi removido com sucesso!"
+
+#~ msgid "The directory {} does not exist."
+#~ msgstr "O diretório {} não existe."
+
+#~ msgid "Error when trying to remove the directory: {}"
+#~ msgstr "Erro ao tentar remover o diretório: {}"
+
+#~ msgid ""
+#~ "GitHub username or organization is not configured.\n"
+#~ "\t\t\t\t\t\tPlease configure it in Genesis settings."
+#~ msgstr ""
+#~ "O nome de usuário ou a organização do GitHub não está configurado(a).\n"
+#~ "Por favor, configure-o(a) nas configurações do Genesis."
 
 #~ msgid "GitHub"
 #~ msgstr "GitHub"

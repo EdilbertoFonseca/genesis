@@ -31,7 +31,9 @@ from .dialogs import GenesisSettingsPanel, GitHubAuthentication, ProgressDialog
 from .varsConfig import (
 	TEMPLATE_PATH_BUILD_VARS,
 	TEMPLATE_PATH_PY_PROJECT,
+	getAddonCreator,
 	getAllowGithubPublish,
+	getEmailAddress,
 	getProjectDir,
 	getRepoOwner,
 	getRepoPrivate,
@@ -175,6 +177,7 @@ class Genesis(wx.Dialog):
 		self.textAddonAuthor = wx.TextCtrl(panel)
 		addonSizer.Add(labelAuthor, 0, wx.ALL, 5)
 		addonSizer.Add(self.textAddonAuthor, 1, wx.EXPAND | wx.ALL, 5)
+		self.textAddonAuthor.SetValue(f"{getAddonCreator()} <{getEmailAddress()}>")
 
 		labelMinNVDA = wx.StaticText(
 			panel,
@@ -462,6 +465,8 @@ class Genesis(wx.Dialog):
 
 		# Get the repository owner from Genesis configuration.
 		repoOwner = (getRepoOwner() or "").strip()
+		addonCreator = getAddonCreator()
+		emailAddress = getEmailAddress()
 
 		# Set the owner only when GitHub publishing is enabled.
 		owner = repoOwner if publishEnabled else ""
@@ -566,6 +571,8 @@ class Genesis(wx.Dialog):
 			"repoOwner": repoOwner,
 			"doc": self.checkAddonDoc.GetValue(),
 			"locale": self.checkAddonLocale.GetValue(),
+			"addonCreator": addonCreator,
+			"emailAddress": emailAddress,
 		}
 
 		# translators: Status message shown in the progress dialog when the add-on is being created.

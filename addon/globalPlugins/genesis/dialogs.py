@@ -32,13 +32,16 @@ from .credentialManager import (
 from .repo import validateToken
 from .varsConfig import (
 	getAllowGithubPublish,
-	getProjectDir,
 	getRepoOwner,
 	getRepoPrivate,
+	getAddonCreator,
+	getEmailAddress,
 	setAllowGithubPublish,
 	setProjectDir,
 	setRepoOwner,
 	setRepoPrivate,
+	setAddonCreator,
+	setEmailAddress,
 )
 
 # Initialize translation support
@@ -306,57 +309,138 @@ class GenesisSettingsPanel(SettingsPanel):
 	title = _("Genesis settings")
 
 	def makeSettings(self, sizer: wx.BoxSizer):
-		settingsSizer = sizer  # Helper to keep the code cleaner and more organized
-		settingsSizerHelper = guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
-		sizer = wx.BoxSizer(wx.VERTICAL)
+		settingsSizer = wx.BoxSizer(wx.VERTICAL)
+		settingsSizerHelper = guiHelper.BoxSizerHelper(
+			self,
+			sizer=settingsSizer,
+		)
 
-		# Allow publishing repo on GitHub
+		# GitHub repository owner.
+		ownerBox = wx.BoxSizer(wx.HORIZONTAL)
+
+		# translators: Label for the GitHub username or organization field.
+		ownerLabel = wx.StaticText(
+			self,
+			label=_("Username or organization:"),
+		)
+		self.ownerField = wx.TextCtrl(self)
+		self.ownerField.SetValue(getRepoOwner())
+
+		ownerBox.Add(ownerLabel, flag=wx.ALL | wx.ALIGN_CENTER_VERTICAL, border=10)
+		ownerBox.Add(
+			self.ownerField,
+			flag=wx.ALL | wx.EXPAND,
+			border=10,
+			proportion=1,
+		)
+
+		settingsSizerHelper.addItem(ownerBox)
+
+		# Allow publishing repositories on GitHub.
 		self.allowPublish = wx.CheckBox(
 			self,
 			# translators: Label for the checkbox that allows publishing the repository on GitHub.
 			label=_("Allow publishing repository on GitHub"),
 		)
 		self.allowPublish.SetValue(getAllowGithubPublish())
-		sizer.Add(self.allowPublish, flag=wx.ALL, border=10)
 
-		# translators: Label for the checkbox that makes the repository private.
-		self.privateRepo = wx.CheckBox(self, label=_("Make repository private"))
+		settingsSizerHelper.addItem(self.allowPublish)
+
+		# Repository visibility.
+		self.privateRepo = wx.CheckBox(
+			self,
+			# translators: Label for the checkbox that makes the repository private.
+			label=_("Make repository private"),
+		)
 		self.privateRepo.SetValue(getRepoPrivate())
-		sizer.Add(self.privateRepo, flag=wx.ALL, border=10)
 
-		# Owner name
-		ownerBox = wx.BoxSizer(wx.HORIZONTAL)
-		# translators: Label for the GitHub username or organization field.
-		ownerLabel = wx.StaticText(self, label=_("Username or organization:"))
-		self.ownerField = wx.TextCtrl(self)
-		self.ownerField.SetValue(getRepoOwner())
-		ownerBox.Add(ownerLabel, flag=wx.ALL, border=10)
-		ownerBox.Add(self.ownerField, flag=wx.ALL, border=10)
-		sizer.Add(ownerBox)
+		settingsSizerHelper.addItem(self.privateRepo)
 
-		# Default project directory
+		# Default project directory.
 		projectBoxSizer = wx.StaticBoxSizer(
 			wx.HORIZONTAL,
 			self,
 			# translators: Label for the default project directory field.
 			label=_("Default project directory:"),
 		)
-		projectBox = projectBoxSizer.GetStaticBox()
-		projectGroup = guiHelper.BoxSizerHelper(self, sizer=projectBoxSizer)
+
+		projectGroup = guiHelper.BoxSizerHelper(
+			self,
+			sizer=projectBoxSizer,
+		)
 
 		self.projectPicker = wx.DirPickerCtrl(
-			projectBox,
-			# translators: Label for the default project directory field.
+			projectBoxSizer.GetStaticBox(),
 			message=_("Choose where new add-ons will be created"),
 		)
-		self.projectPicker.SetPath(getProjectDir() or "")
-		projectGroup.addItem(self.projectPicker, flag=wx.EXPAND)
+
+		projectGroup.addItem(
+			self.projectPicker,
+			flag=wx.EXPAND,
+		)
 
 		settingsSizerHelper.addItem(projectGroup)
-		settingsSizer.Add(sizer)
+
+		# Add-on creator name.
+		addonCreatorBox = wx.BoxSizer(wx.HORIZONTAL)
+
+		# translators: Label for the add-on creator's name field.
+		addonCreatorLabel = wx.StaticText(
+			self,
+			label=_("Add-on creator:"),
+		)
+		self.addonCreatorField = wx.TextCtrl(self)
+		self.addonCreatorField.SetValue(getAddonCreator())
+
+		addonCreatorBox.Add(
+			addonCreatorLabel,
+			flag=wx.ALL | wx.ALIGN_CENTER_VERTICAL,
+			border=10,
+		)
+		addonCreatorBox.Add(
+			self.addonCreatorField,
+			flag=wx.ALL | wx.EXPAND,
+			border=10,
+			proportion=1,
+		)
+
+		settingsSizerHelper.addItem(addonCreatorBox)
+
+		# Add-on creator email address.
+		emailAddressBox = wx.BoxSizer(wx.HORIZONTAL)
+
+		# translators: Label for the email address field of the add-on author.
+		emailAddressLabel = wx.StaticText(
+			self,
+			label=_("Email address:"),
+		)
+		self.emailAddressField = wx.TextCtrl(self)
+		self.emailAddressField.SetValue(getEmailAddress())
+
+		emailAddressBox.Add(
+			emailAddressLabel,
+			flag=wx.ALL | wx.ALIGN_CENTER_VERTICAL,
+			border=10,
+		)
+		emailAddressBox.Add(
+			self.emailAddressField,
+			flag=wx.ALL | wx.EXPAND,
+			border=10,
+			proportion=1,
+		)
+
+		settingsSizerHelper.addItem(emailAddressBox)
+
+		sizer.Add(
+			settingsSizer,
+			flag=wx.EXPAND,
+			proportion=1,
+		)
 
 	def onSave(self):
 		setAllowGithubPublish(self.allowPublish.GetValue())
 		setRepoPrivate(self.privateRepo.GetValue())
 		setRepoOwner(self.ownerField.GetValue())
 		setProjectDir(self.projectPicker.GetPath())
+		setAddonCreator(self.addonCreatorField.GetValue())
+		setEmailAddress(self.emailAddressField.GetValue())

@@ -68,11 +68,13 @@ def initConfiguration():
 		addon = addonHandler.getCodeAddon()
 
 		config.conf.spec[addon.name] = {
+			"repoOwner": 'string(default="")',
 			"allowGithubPublish": "boolean(default=True)",
 			"repoPrivate": "boolean(default=True)",
-			"repoOwner": 'string(default="")',
-			"repoDescription": 'string(default="")',
 			"projectDir": 'string(default="")',
+			"repoDescription": 'string(default="")',
+			"addonCreator": 'string(default="")',
+			"emailAddress": 'string(default="")',
 		}
 
 	except Exception as e:
@@ -108,6 +110,14 @@ def getProjectDir():
 	return _getSection().get("projectDir", "")
 
 
+def getAddonCreator():
+	return _getSection().get("addonCreator", "")
+
+
+def getEmailAddress():
+	return _getSection().get("emailAddress", "")
+
+
 #  SETTERS
 
 
@@ -129,3 +139,11 @@ def setRepoDescription(val: str):
 
 def setProjectDir(path: str):
 	_getSection()["projectDir"] = path or ""
+
+
+def setAddonCreator(val: str):
+	_getSection()["addonCreator"] = val or ""
+
+
+def setEmailAddress(val: str):
+	_getSection()["emailAddress"] = val or ""

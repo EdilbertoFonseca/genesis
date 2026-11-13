@@ -29,7 +29,7 @@ from logHandler import log
 # Default add-on configuration
 DEFAULTS = {
 	"version": "2026.1.0",
-	"minNVDA": "2025.1.0",
+	"minNVDA": "2026.1.0",
 	"lastNVDA": versionInfo.version,
 }
 

@@ -7,7 +7,7 @@ name = "{name}"
 dynamic = ["version"]
 description = "{description}"
 maintainers = [
-	{name = "Author", email = "Email"},
+	{name = "{addonCreator}", email = "{emailAddress}"},
 ]
 requires-python = ">=3.13,<3.14"
 classifiers = [
