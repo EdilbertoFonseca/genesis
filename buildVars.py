@@ -29,8 +29,20 @@ Shortcut: NVDA+Shift+G."""),
 	addon_version="2026.1.0",
 	# Brief changelog for this version
 	# Translators: what's new content for the add-on version to be shown in the add-on store
-	addon_changelog=_("""Changelog for the add-on version.
-It can span multiple lines."""),
+	addon_changelog=_("""# Changelog
+
+## New Features
+
+- **Data Persistence:** Creator name and email are now saved in Genesis settings.
+- **Auto-fill:** The "author" field is now automatically prefilled with saved creator details.
+- **Metadata:** Creator details are now automatically applied to generated project metadata.
+
+## Changes and Maintenance
+
+- **Compatibility:** Raised the minimum supported NVDA version to 2026.1.
+- **Documentation:** Added comprehensive documentation for the add-on settings.
+- **Localization:** Updated Portuguese (PT-BR) translations.
+- **Cleanup:** Removed obsolete checkout lint output."""),
 	# Author(s)
 	addon_author="Edilberto Fonseca <edilberto.fonseca@outlook.com>",
 	# URL for the add-on documentation support

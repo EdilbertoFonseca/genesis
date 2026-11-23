@@ -91,30 +91,37 @@ def _getSection() -> Dict[str, Any]:
 
 
 def getAllowGithubPublish():
+	"""Return the allowGithubPublish setting from the Genesis configuration."""
 	return _getSection().get("allowGithubPublish", True)
 
 
 def getRepoPrivate():
+	"""Return the repository privacy setting from the Genesis configuration."""
 	return _getSection().get("repoPrivate", True)
 
 
 def getRepoOwner():
+	"""Return the repository owner from the Genesis configuration."""
 	return _getSection().get("repoOwner", "")
 
 
 def getRepoDescription():
+	"""Return the repository description from the Genesis configuration."""
 	return _getSection().get("repoDescription", "")
 
 
 def getProjectDir():
+	"""Return the project directory path from the Genesis configuration."""
 	return _getSection().get("projectDir", "")
 
 
 def getAddonCreator():
+	"""Return the add-on creator's name from the Genesis configuration."""
 	return _getSection().get("addonCreator", "")
 
 
 def getEmailAddress():
+	"""Return the email address from the Genesis configuration."""
 	return _getSection().get("emailAddress", "")
 
 
@@ -122,28 +129,35 @@ def getEmailAddress():
 
 
 def setAllowGithubPublish(val: bool):
+	"""Sets the allowGithubPublish setting in the Genesis configuration."""
 	_getSection()["allowGithubPublish"] = bool(val)
 
 
 def setRepoPrivate(val: bool):
+	"""Sets the repository privacy setting in the Genesis configuration."""
 	_getSection()["repoPrivate"] = bool(val)
 
 
 def setRepoOwner(val: str):
+	"""Sets the repository owner in the Genesis configuration."""
 	_getSection()["repoOwner"] = val or ""
 
 
 def setRepoDescription(val: str):
+	"""Sets the repository description in the Genesis configuration."""
 	_getSection()["repoDescription"] = val or ""
 
 
 def setProjectDir(path: str):
+	"""Sets the project directory path in the Genesis configuration."""
 	_getSection()["projectDir"] = path or ""
 
 
 def setAddonCreator(val: str):
+	"""Sets the add-on creator's name in the Genesis configuration."""
 	_getSection()["addonCreator"] = val or ""
 
 
 def setEmailAddress(val: str):
+	"""Sets the email address in the Genesis configuration."""
 	_getSection()["emailAddress"] = val or ""
