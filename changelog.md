@@ -1,42 +1,14 @@
 # Changelog
 
-This commit introduces a large refactor and maintenance update across the repository, focusing on modernizing tooling, improving robustness, and streamlining CI/build steps.
+## New Features
 
-Key changes include:
-CI:
+- **Data Persistence:** Creator name and email are now saved in Genesis settings.
+- **Auto-fill:** The "author" field is now automatically prefilled with saved creator details.
+- **Metadata:** Creator details are now automatically applied to generated project metadata.
 
-- `buildaddon.yml` now skips running on the template repo.
-- Installs and uses the 'uv' runner for dependencies.
-- Runs `pre-commit` and `scons` via `uv`.
-- Improves artifact upload/download settings.
+## Changes and Maintenance
 
-Pre-commit:
-
-- Replaced/expanded hooks with a comprehensive configuration (e.g., `ruff`, `add-trailing-comma`, - `no-commit-to-branch`, `pyright` local hook).
-- Added sensible excludes and defaults.
-
-Genesis plugin:
-
-
-- Numerous API/style refactors:
-- Renamed several functions/variables to `camelCase`.
-- Integrated `gettext` for internationalization.
-- Cleaner menu/menu-item binding.
-- Improved dialog lifecycle handling.
-- Enhanced settings panel wiring.
-- Improved error/message handling and logging.
-- Added small UX fixes.
-- Safer resource cleanup in `terminate()`.
-
-Utilities & templates:
-
-- Rewritten/renamed functions in `fileUtils` and `addonUtils`.
-- Improved error handling and logging in utilities.
-- Extended `buildVars.tpl` with `speechDictionaries`.
-
-Docs & metadata:
-
-- Updated Portuguese README (formatting/wording).
-- Added AI disclosure comments in some modules.
-- Removed obsolete `installTasks`.
-- Added `checkoutCode.txt`.
+- **Compatibility:** Raised the minimum supported NVDA version to 2026.1.
+- **Documentation:** Added comprehensive documentation for the add-on settings.
+- **Localization:** Updated Portuguese (PT-BR) translations.
+- **Cleanup:** Removed obsolete checkout lint output.

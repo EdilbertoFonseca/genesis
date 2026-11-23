@@ -35,9 +35,9 @@ from .main import Genesis
 from .varsConfig import ADDON_SUMMARY, ADDON_PATH, initConfiguration
 
 # Add the lib/ folder to sys.path (only once)
-libPath = os.path.join(ADDON_PATH, "lib")
-if libPath not in sys.path:
-	sys.path.insert(0, libPath)
+LIB_PATH = os.path.join(ADDON_PATH, "lib")
+if LIB_PATH not in sys.path:
+	sys.path.insert(0, LIB_PATH)
 
 # Initializes the translation
 addonHandler.initTranslation()
