@@ -273,7 +273,7 @@ class Genesis(wx.Dialog):
 
 		manageGitHubTokenButton = wx.Button(
 			panel,
-			label=_("Manage GitHub token. "),
+			label=_("&Manage GitHub token. "),
 		)
 		manageGitHubTokenButton.Bind(wx.EVT_BUTTON, self.onManageGitHubToken)
 
@@ -301,7 +301,7 @@ class Genesis(wx.Dialog):
 		cancelButton = wx.Button(
 			panel,
 			wx.ID_CANCEL,
-			label=_("&Cancel"),
+			label=_("C&ancel"),
 		)
 		cancelButton.Bind(wx.EVT_BUTTON, self.onCancel)
 
